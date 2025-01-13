@@ -1,0 +1,137 @@
+<resources>
+    <string name="app_name">Bluetooth Chat</string>
+
+    <string name="screen_title_settings">Ajustes</string>
+    <string name="screen_title_connect">Conectar</string>
+    <string name="screen_title_add_members">Añadir miembros</string>
+    <string name="screen_title_main">Bluetooth Chat</string>
+    <string name="screen_title_new_group">Nuevo grupo</string>
+    <string name="screen_title_my_profile">Mi perfil</string>
+
+    <string name="dialog_error">Error</string>
+    <string name="dialog_ok">Aceptar</string>
+    <string name="dialog_cancel">Cancelar</string>
+
+    <string name="location_dialog_title">Acceso a la ubicación</string>
+    <string name="location_dialog_message">Para poder descubrir dispositivos cercanos, la aplicación necesita acceso a la ubicación</string>
+
+    <string name="rate_app_dialog_title">Califica esta aplicación</string>
+    <string name="rate_app_dialog_message">Si te gusta usar la aplicación, tómate un momento para calificarla. No te llevará más de un minuto.</string>
+    <string name="rate_app_dialog_rate_now">Califica ahora</string>
+    <string name="rate_app_dialog_never_ask_again">No, gracias</string>
+
+    <string name="connection_error_dialog_message">No se pudo conectar. Asegúrese de que el dispositivo esté cerca y tenga la aplicación ejecutándose.</string>
+    <string name="device_not_paired_anymore_message">El dispositivo ya no está emparejado. Restablezca la conexión a través de la pantalla Conectar</string> <!--None: high-impact, make sure to translate properly-->
+    <string name="user_already_a_member_dialog_message">%s ya es miembro de este chat</string>
+
+    <string name="chat_you">Tú</string>
+    <string name="chat_image">Imagen</string>
+    <string name="chat_today">Hoy</string>
+
+    <string name="chat_input_button_connect">Conectar</string>
+    <string name="chat_input_button_restart">Reiniciar</string>
+    <string name="chat_input_connecting_message">Conectando…</string>
+    <string name="chat_input_private_not_connected_message">No estas conectado</string>
+    <string name="chat_input_group_not_connected_message">No estas conectado al anfitrión</string>
+    <string name="chat_input_group_doesnt_exist">Este chat ha sido eliminado por el anfitrión</string>
+    <string name="chat_input_group_no_longer_member">Ya no eres miembro de este chat</string>
+    <string name="chat_input_private_doesnt_exist">Este chat ha sido eliminado por el usuario</string>
+    <string name="chat_input_hint">Mensaje</string>
+    <string name="chat_update_group_created">%s creado el grupo</string>
+    <string name="chat_update_user_added">%s añadió %s</string>
+    <string name="chat_update_user_removed">%s eliminó %s</string>
+    <string name="chat_update_user_left">%s dejó el grupo</string>
+
+    <string name="message_action_reply">Responder</string>
+    <string name="message_action_copy">Copiar texto</string>
+    <string name="message_action_save_to_gallery">Guardar en la galería</string>
+
+    <string name="user_action_remove_from_group">Eliminar del grupo</string>
+    <string name="user_action_remove_from_group_and_disconnect">Eliminar del grupo y Desconectar</string>
+
+    <string name="chat_action_private_delete">Eliminar</string>
+    <string name="chat_action_private_disconnect">Desconectar</string>
+    <string name="chat_action_private_delete_and_disconnect">Eliminar y Desconectar</string>
+    <string name="chat_action_delete_confirm_title">Eliminar chat</string>
+    <string name="chat_action_delete_confirm_text">¿Estás seguro de que quieres eliminar el chat %s?</string>
+    <string name="chat_action_leave_confirm_title">Salir del chat</string>
+    <string name="chat_action_leave_confirm_text">¿Estás seguro de que quieres dejar el %s?</string>
+
+    <string name="chat_action_group_delete">Eliminar</string>
+    <string name="chat_action_group_disconnect_all">Desconectar a todos</string>
+    <string name="chat_action_group_delete_and_disconnect_all">Eliminar y Desconectar a todos</string>
+
+    <string name="chat_action_group_leave">Salir</string>
+    <string name="chat_action_group_disconnect">Desconectar</string>
+    <string name="chat_action_group_leave_and_disconnect">Salir y Desconectar</string>
+
+    <string name="main_empty_message">No tienes ningún chat.\nPresiona \"+\" en la parte inferior derecha para iniciar uno.</string>
+
+    <string name="settings_section_appearance">Apariencia</string>
+    <string name="settings_section_about">Sobre el programa</string>
+
+    <string name="settings_theme">Tema</string>
+    <string name="theme_system">Predeterminado del sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+
+    <string name="profile_name">Nombre</string>
+    <string name="profile_color">Color</string>
+    <string name="profile_device">Dispositivo</string>
+    <string name="profile_name_hint">Introduzca su nombre</string>
+    <string name="profile_name_error_empty">El nombre no puede estar vacío</string>
+
+    <string name="group_name">Nombre del grupo</string>
+    <string name="group_name_hint">Ingrese el nombre del grupo</string>
+    <string name="add_members">Añadir miembros</string>
+    <string name="group_admin">Propietario</string>
+    <string name="group_member">Miembro</string>
+
+    <string name="connected">conectado</string>
+    <string name="paywall_continue">Continuar</string>
+
+    <plurals name="member">
+        <item quantity="one">miembro</item>
+        <item quantity="other">miembros</item>
+    </plurals>
+
+    <string name="permission_denied_message_location">Para utilizar la aplicación, proporcione permiso de ubicación</string>
+    <string name="permission_denied_message_bluetooth">Para utilizar la aplicación, proporcione permiso para dispositivos cercanos</string>
+
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="terms_of_use">Condiciones de uso</string>
+    <string name="contact_support">Soporte de contacto</string>
+    <string name="app_version">Version de aplicacion</string>
+    <string name="chat_protocol_version">Versión del protocolo de chat</string>
+
+    <string name="snackbar_saved_to_gallery">Guardado en la galería</string>
+    <string name="snackbar_message_copied">Texto copiado</string>
+
+    <!--Connect screen-->
+    <string name="connect_permission_needed">Proporcionar permiso de Bluetooth para conectarse a otros dispositivos</string>
+    <string name="connect_bluetooth_disabled">Habilite Bluetooth para conectarse a otros dispositivos</string>
+    <string name="enable">Activado</string>
+    <string name="provide">Proporcionar</string>
+    <string name="connect_create_group">Nuevo grupo</string>
+    <string name="connect_make_discoverable">Hacer visible</string>
+    <string name="connect_discoverable">Visible</string>
+    <string name="connect_scan_for_devices">Buscar dispositivos</string>
+    <string name="connect_scanning">Escaneando…</string>
+    <string name="connect_info_header">Escanee y conéctese a otros dispositivos o haga que su dispositivo sea visible para que otros puedan encontrarlo</string>
+    <string name="connect_found_devices">Dispositivos encontrados</string>
+    <string name="connect_paired_devices">Dispositivos sincronizados</string>
+    <string name="connect_devices_empty">No hay dispositivos compatibles</string>
+    <string name="connect_share_apk">Compartir .apk</string>
+
+    <string name="notification_channel_ongoing">Servicio en segundo plano</string>
+    <string name="notification_channel_messages">Mensajes</string>
+    <string name="notification_private_chat_started">%s inició un chat privado contigo</string>
+    <string name="notification_added_to_group">Has sido agregado a %s</string>
+    <string name="notification_is_running">%s se está ejecutando</string>
+    <string name="notification_connected_devices">Dispositivos conectados: %s</string>
+    <string name="notification_no_connected_devices">No hay dispositivos conectados</string>
+    <string name="notification_stop">Detener</string>
+
+    <string name="error_invalid_image_message">Imagen no válida. Intente con otra</string>
+
+</resources>

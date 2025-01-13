@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/screen_bg" />
+        </shape>
+    </item>
+
+    <item
+        android:width="200dp"
+        android:height="200dp"
+        android:drawable="@drawable/ic_splashscreen_logo"
+        android:gravity="center" />
+
+</layer-list>

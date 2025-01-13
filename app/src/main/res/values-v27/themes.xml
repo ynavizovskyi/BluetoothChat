@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.BluetoothChat" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <style name="Theme.BluetoothChat.SplashScreen" parent="Theme.SplashScreen">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.BluetoothChat</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>
