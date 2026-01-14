@@ -2,7 +2,6 @@ package com.bluetoothchat.core.filemanager.file
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
@@ -31,7 +30,6 @@ class FileManager @Inject constructor(
         withContext(dispatcherManager.io) {
             val file = File(folder, fileName)
             val fullPath = file.path
-            Log.v("fdlskjfdslkjfds", "$sizeBytes ${file.length()}")
             if (file.exists() && (sizeBytes == 0L || file.length() == sizeBytes)) {
                 FileState.Downloaded(fileName = fileName, path = fullPath, fileSizeBytes = file.length())
             } else {
@@ -72,8 +70,8 @@ class FileManager @Inject constructor(
         return file
     }
 
-    private fun getOutputDirectory(): File {
-        return context.getExternalFilesDir(null)!!
+    private fun getOutputDirectory(): File? {
+        return context.getExternalFilesDir(null)
     }
 
     fun createChatFolderFileName(uri: Uri): String {

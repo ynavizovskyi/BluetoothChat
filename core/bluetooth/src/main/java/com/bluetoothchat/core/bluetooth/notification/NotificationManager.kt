@@ -188,12 +188,18 @@ class NotificationManagerWrapper @Inject constructor(
             fileManager.getChatAvatarPictureFile(fileName = it.id, sizeBytes = it.sizeBytes) as? FileState.Downloaded
         }
         val userIcon = downloadedUserPictureFile?.let {
-            val bitmap = imageProcessor.fetchBitmap(
-                context = context,
-                uri = createExportableUri(downloadedUserPictureFile.path),
-            )
-            val roundBitmap = imageProcessor.createCircleBitmap(bitmap = bitmap, scale = NOTIFICATION_ICON_SCALE_FACTOR)
-            IconCompat.createWithBitmap(roundBitmap)
+            runCatching {
+                imageProcessor.fetchBitmap(
+                    context = context,
+                    uri = createExportableUri(downloadedUserPictureFile.path),
+                )
+            }.getOrNull()?.let { bitmap ->
+                val roundBitmap = imageProcessor.createCircleBitmap(
+                    bitmap = bitmap,
+                    scale = NOTIFICATION_ICON_SCALE_FACTOR,
+                )
+                IconCompat.createWithBitmap(roundBitmap)
+            }
         }
         val userBuilder = Person.Builder()
             .setName(user?.userName ?: "")

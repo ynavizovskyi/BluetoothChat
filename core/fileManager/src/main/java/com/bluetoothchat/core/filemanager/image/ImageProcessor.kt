@@ -29,6 +29,7 @@ import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.jvm.Throws
 
 @Singleton
 class ImageProcessor @Inject constructor(
@@ -79,6 +80,7 @@ class ImageProcessor @Inject constructor(
             }
         }
 
+    @Throws(IllegalStateException::class)
     suspend fun fetchBitmap(context: Context, uri: Uri): Bitmap =
         withContext(Dispatchers.IO) {
             val loader = ImageLoader(context)
