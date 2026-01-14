@@ -341,7 +341,7 @@ private fun LoadedScreenContent(
 
             items(items = state.items, key = { it.toId() }) { item ->
                 ChatItem(
-                    modifier = Modifier.animateItemPlacement(),
+                    modifier = Modifier.animateItem(),
                     item = item,
                     showOtherUserImages = true,
                     userClickListener = { actionListener(GroupChatAction.UserClicked(it)) },

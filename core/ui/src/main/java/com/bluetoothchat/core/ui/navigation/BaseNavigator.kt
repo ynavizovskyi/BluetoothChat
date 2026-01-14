@@ -25,7 +25,7 @@ open class BaseNavigator(
     }
 
     override fun showDialog(params: DialogInputParams) {
-        navController.navigate(DialogDestination(params))
+        navController.navigate(direction = DialogDestination(params))
     }
 
     @Composable

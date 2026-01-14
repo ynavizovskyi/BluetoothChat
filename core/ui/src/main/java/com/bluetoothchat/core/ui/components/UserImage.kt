@@ -137,9 +137,9 @@ private fun BoxWithConstraintsScope.NoResourceImage(name: String?, modifier: Mod
         if (!name.isNullOrEmpty()) {
             val pieces = name.split(" ").filter { it.isNotEmpty() }
             if (pieces.size > 1) {
-                pieces[0][0].toString().toUpperCase() + pieces[1][0].toString().toUpperCase()
+                pieces[0][0].toString().uppercase() + pieces[1][0].toString().uppercase()
             } else {
-                name.getOrNull(0)?.toString()?.toUpperCase() ?: ""
+                name.getOrNull(0)?.toString()?.uppercase() ?: ""
             }
         } else {
             ""

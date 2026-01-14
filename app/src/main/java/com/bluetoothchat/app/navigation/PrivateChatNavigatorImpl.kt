@@ -18,7 +18,7 @@ class PrivateChatNavigatorImpl(navController: NavController, dialogResultRecipie
 
     override fun navigateToViewImageScreen(chatId: String, messageId: String) {
         navController.navigate(
-            ViewImageScreenDestination(
+            direction = ViewImageScreenDestination(
                 ViewImageInputParams(
                     chatId = chatId,
                     messageId = messageId,
@@ -30,7 +30,7 @@ class PrivateChatNavigatorImpl(navController: NavController, dialogResultRecipie
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
         navController.navigate(
-            ProfileScreenDestination(
+            direction = ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Other(userDeviceAddress),
                     source = SOURCE_PRIVATE_CHAT,

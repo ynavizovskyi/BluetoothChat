@@ -19,12 +19,12 @@ class GroupChatInfoNavigatorImpl(
 ) : BaseNavigator(navController, dialogResultRecipient), GroupChatInfoNavigator {
 
     override fun navigateToAddUsersScreen(chatId: String) {
-        navController.navigate(AddUsersScreenDestination(AddUsersInputParams(chatId = chatId)))
+        navController.navigate(direction = AddUsersScreenDestination(AddUsersInputParams(chatId = chatId)))
     }
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
         navController.navigate(
-            ProfileScreenDestination(
+            direction = ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Other(userDeviceAddress),
                     source = SOURCE_GROUP_CHAT_INFO,

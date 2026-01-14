@@ -28,7 +28,10 @@ fun DependencyHandler.compose() {
 fun DependencyHandler.hiltAndroid() {
     add(implementation, Libs.AndroidX.Hilt.compose)
     add(implementation, Libs.Hilt.android)
-    add(kapt, Libs.Hilt.androidCompiler)
+    add(ksp, Libs.Hilt.androidCompiler)
+
+    //https://github.com/google/dagger/issues/5059
+    add(ksp, "org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0")
 }
 
 fun DependencyHandler.destinationsNavigation() {

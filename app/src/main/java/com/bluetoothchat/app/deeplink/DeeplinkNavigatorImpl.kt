@@ -22,7 +22,7 @@ class DeeplinkNavigatorImpl(
 
         navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            ConnectScreenDestination(
+            direction = ConnectScreenDestination(
                 ConnectInputParams(
                     startScanningOnStart = false,
                     source = SOURCE_NOTIFICATION,
@@ -36,7 +36,7 @@ class DeeplinkNavigatorImpl(
 
         navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            PrivateChatScreenDestination(
+            direction = PrivateChatScreenDestination(
                 PrivateChatInputParams(
                     chatId = chatId,
                     source = SOURCE_NOTIFICATION,
@@ -50,7 +50,7 @@ class DeeplinkNavigatorImpl(
 
         navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            GroupChatScreenDestination(
+            direction = GroupChatScreenDestination(
                 GroupChatInputParams(
                     chatId = chatId,
                     source = SOURCE_NOTIFICATION,

@@ -6,8 +6,7 @@ import android.view.Window
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -15,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.Dp
 import androidx.core.view.WindowCompat
 
 @Composable
@@ -37,7 +37,6 @@ fun ChatAppTheme(
         }
     }
 
-    val rippleIndication = rememberRipple()
     val customTextSelectionColors = TextSelectionColors(
         handleColor = colorScheme.accent,
         backgroundColor = colorScheme.accent.copy(alpha = 0.4f)
@@ -45,8 +44,7 @@ fun ChatAppTheme(
 
     CompositionLocalProvider(
         LocalChatAppColorScheme provides colorScheme,
-        LocalRippleTheme provides if (darkTheme) DarkRippleTheme else LightRippleTheme,
-        LocalIndication provides rippleIndication,
+        LocalIndication provides rememberRippleIndicator(darkTheme = darkTheme),
         LocalTextSelectionColors provides customTextSelectionColors
     ) {
         content()
@@ -60,4 +58,13 @@ private fun setWindowColors(window: Window, view: View, colorScheme: ChatAppColo
     //Status bar should be light on both black and blue status bars
     WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
     WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !colorScheme.isDark
+}
+
+@Composable
+private fun rememberRippleIndicator(darkTheme: Boolean) = remember(darkTheme) {
+    if (darkTheme) {
+        ripple(radius = Dp.Unspecified, color = Color.White)
+    } else {
+        ripple(radius = Dp.Unspecified, color = Color.Black)
+    }
 }

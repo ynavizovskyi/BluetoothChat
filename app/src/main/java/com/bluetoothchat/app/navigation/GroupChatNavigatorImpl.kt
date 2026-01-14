@@ -19,12 +19,12 @@ class GroupChatNavigatorImpl(navController: NavController, dialogResultRecipient
     BaseNavigator(navController, dialogResultRecipient), GroupChatNavigator {
 
     override fun navigateToChatInfoScreen(chatId: String) {
-        navController.navigate(GroupChatInfoScreenDestination(GroupChatInfoInputParams(chatId = chatId)))
+        navController.navigate(direction = GroupChatInfoScreenDestination(GroupChatInfoInputParams(chatId = chatId)))
     }
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
         navController.navigate(
-            ProfileScreenDestination(
+            direction = ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Other(
                         userDeviceAddress
@@ -37,7 +37,7 @@ class GroupChatNavigatorImpl(navController: NavController, dialogResultRecipient
 
     override fun navigateToViewImageScreen(chatId: String, messageId: String) {
         navController.navigate(
-            ViewImageScreenDestination(
+            direction = ViewImageScreenDestination(
                 ViewImageInputParams(
                     chatId = chatId,
                     messageId = messageId,

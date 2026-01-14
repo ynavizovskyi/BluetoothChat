@@ -17,7 +17,7 @@ class ConnectNavigatorImpl(navController: NavController, dialogResultRecipient: 
     BaseNavigator(navController, dialogResultRecipient), ConnectNavigator {
 
     override fun navigateToCreateGroupScreen() {
-        navController.navigate(CreateGroupScreenDestination)
+        navController.navigate(direction = CreateGroupScreenDestination)
     }
 
     override fun navigateToPrivateChatScreen(chatId: String) {

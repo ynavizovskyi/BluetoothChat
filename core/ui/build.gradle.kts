@@ -1,8 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinCompose)
     id(Plugins.ksp) version Versions.ksp
-    id(Plugins.kapt)
     id(Plugins.parcelize)
 }
 
@@ -27,15 +29,14 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.versionCompiler
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
 }
 
@@ -54,6 +55,8 @@ dependencies {
     implementation(Libs.playReview)
     implementation(Libs.AndroidX.Lifecycle.viewModelCompose)
     implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
+    implementation(Libs.AndroidX.Compose.material3)
+    implementation(Libs.AndroidX.Compose.materialIcons)
 
     implementation(project(Module.Core.domain))
     implementation(project(Module.Core.db))

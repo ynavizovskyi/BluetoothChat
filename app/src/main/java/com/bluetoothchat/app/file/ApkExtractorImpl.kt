@@ -30,7 +30,7 @@ class ApkExtractorImpl @Inject constructor(@ApplicationContext private val conte
 
         val directory = context.externalCacheDir
             ?: File(Environment.getExternalStorageDirectory(), context.getString(CoreUiR.string.app_name))
-        val file = File(application.applicationInfo.publicSourceDir)
+        val file = File(application.applicationInfo?.publicSourceDir)
 
         return try {
             val newFile = copyAndZip(file, directory, "BluetoothChat")

@@ -23,7 +23,7 @@ class MainNavigatorImpl(navController: NavController, dialogResultRecipient: Ope
 
     override fun navigateToConnectScreen() {
         navController.navigate(
-            ConnectScreenDestination(
+            direction = ConnectScreenDestination(
                 ConnectInputParams(
                     startScanningOnStart = true,
                     source = SOURCE_MAIN,
@@ -33,12 +33,12 @@ class MainNavigatorImpl(navController: NavController, dialogResultRecipient: Ope
     }
 
     override fun navigateToGroupChatScreen(chatId: String) {
-        navController.navigate(GroupChatScreenDestination(GroupChatInputParams(chatId = chatId, source = SOURCE_MAIN)))
+        navController.navigate(direction = GroupChatScreenDestination(GroupChatInputParams(chatId = chatId, source = SOURCE_MAIN)))
     }
 
     override fun navigateToPrivateChatScreen(chatId: String) {
         navController.navigate(
-            PrivateChatScreenDestination(
+            direction = PrivateChatScreenDestination(
                 PrivateChatInputParams(
                     chatId = chatId,
                     source = SOURCE_MAIN,
@@ -49,7 +49,7 @@ class MainNavigatorImpl(navController: NavController, dialogResultRecipient: Ope
 
     override fun navigateToCurrentUserProfileScreen() {
         navController.navigate(
-            ProfileScreenDestination(
+            direction = ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Me(isInitialSetUp = false),
                     source = SOURCE_MAIN,
@@ -59,7 +59,7 @@ class MainNavigatorImpl(navController: NavController, dialogResultRecipient: Ope
     }
 
     override fun navigateToSettings() {
-        navController.navigate(SettingsScreenDestination())
+        navController.navigate(direction = SettingsScreenDestination())
     }
 }
 

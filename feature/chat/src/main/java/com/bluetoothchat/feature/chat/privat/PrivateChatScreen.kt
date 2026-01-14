@@ -342,7 +342,7 @@ private fun LoadedScreenContent(
 
             items(items = state.items, key = { it.toId() }) { item ->
                 ChatItem(
-                    modifier = Modifier.animateItemPlacement(),
+                    modifier = Modifier.animateItem(),
                     item = item,
                     showOtherUserImages = false,
                     userClickListener = { actionListener(PrivateChatAction.UserClicked(it)) },

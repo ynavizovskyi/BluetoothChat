@@ -144,13 +144,13 @@ fun <T> DropdownMenu(
     isFocusable: Boolean = true,
 ) {
     //Stupid hack to preserve ripple color after setting material theme to change dropdown shape *facepalm*
-    val rippleTheme = LocalRippleTheme.current
+    val rippleTheme = LocalIndication.current
     MaterialTheme(
         //This is the way to round corners in the dropdown menu ffs
         shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(4.dp)),
         colorScheme = MaterialTheme.colorScheme.copy(surface = Color.Transparent)
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides rippleTheme) {
+        CompositionLocalProvider(LocalIndication provides rippleTheme) {
             DropdownMenu(
                 modifier = Modifier
                     .background(color = LocalChatAppColorScheme.current.chatInputBackground)

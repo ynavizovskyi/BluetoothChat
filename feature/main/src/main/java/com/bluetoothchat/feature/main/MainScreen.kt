@@ -357,7 +357,7 @@ private fun ChatList(
                         .fillMaxWidth()
                         .background(color = LocalChatAppColorScheme.current.screenBackground)
                         //TODO: when lazy list is scrollable (takes full screen) this modifier hides the first item
-                        .animateItemPlacement(),
+                        .animateItem(),
                     chat = chat,
                     lastMessage = chatWithMessage.lastMessage,
                     unreadCount = chatWithMessage.numOfUnreadMessages,
@@ -368,7 +368,7 @@ private fun ChatList(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = LocalChatAppColorScheme.current.screenBackground)
-                        .animateItemPlacement(),
+                        .animateItem(),
                     chat = chat,
                     lastMessage = chatWithMessage.lastMessage,
                     unreadCount = chatWithMessage.numOfUnreadMessages,

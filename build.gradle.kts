@@ -2,7 +2,9 @@
 plugins {
     id(Plugins.androidApplication) version BuildPlugins.gradleVersion apply false
     id(Plugins.androidLibrary) version BuildPlugins.gradleVersion apply false
+    id(Plugins.kotlinSerialization) version Versions.kotlinVersion apply false
     id(Plugins.kotlinAndroid) version Versions.kotlinVersion apply false
+    id(Plugins.kotlinCompose) version Versions.kotlinVersion apply false
     id(Plugins.ksp) version Versions.ksp apply false
 }
 

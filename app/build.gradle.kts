@@ -1,11 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinCompose)
     id(Plugins.googleServices)
     id(Plugins.crashlytics)
-    id(Plugins.kapt)
     id(Plugins.hiltAndroid)
     id(Plugins.ksp) version Versions.ksp
     id(Plugins.parcelize)
@@ -79,15 +80,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.versionCompiler
     }
     packaging {
         resources {
