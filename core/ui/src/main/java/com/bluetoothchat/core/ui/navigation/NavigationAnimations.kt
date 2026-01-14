@@ -6,11 +6,12 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.runtime.Stable
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideOut
+import androidx.compose.ui.unit.IntOffset
 
-@Stable
+private const val exitScreenTransitionFraction = 8
+
 fun <T> tween(
     durationMillis: Int = 300,
     delayMillis: Int = 0,
@@ -18,20 +19,28 @@ fun <T> tween(
 ): TweenSpec<T> = TweenSpec(durationMillis, delayMillis, easing)
 
 fun AnimatedContentTransitionScope<*>.screenEnterTransition(): EnterTransition {
-    return fadeIn(initialAlpha = 0.5f, animationSpec = tween()) +
-            slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Start, animationSpec = tween())
+    return slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Start, animationSpec = tween())
 }
 
 fun AnimatedContentTransitionScope<*>.screenExitTransition(): ExitTransition {
-    return fadeOut(targetAlpha = 0.999f, animationSpec = tween())
+    return slideOut(
+        animationSpec = tween(),
+        targetOffset = { size ->
+            IntOffset(x = -size.width / exitScreenTransitionFraction, y = 0)
+        },
+    )
 }
 
 fun AnimatedContentTransitionScope<*>.screenPopEnterTransition(): EnterTransition {
-    return fadeIn(initialAlpha = 0.999f, animationSpec = tween())
+    return slideIn(
+        animationSpec = tween(),
+        initialOffset = { size ->
+            IntOffset(x = -size.width / exitScreenTransitionFraction, y = 0)
+        },
+    )
 }
 
 fun AnimatedContentTransitionScope<*>.screenPopExitTransition(): ExitTransition {
-    return fadeOut(targetAlpha = 0.5f, animationSpec = tween()) +
-            slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.End, animationSpec = tween())
+    return slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.End, animationSpec = tween())
 }
 
