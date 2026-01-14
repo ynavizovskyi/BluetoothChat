@@ -11,8 +11,6 @@ import com.bluetoothchat.core.ui.components.dialog.model.DialogOption
 import com.bluetoothchat.core.ui.components.dialog.model.DialogRadioButton
 import com.bluetoothchat.core.ui.model.UiText
 import com.bluetoothchat.core.ui.mvi.MviViewModel
-import com.bluetoothchat.core.ui.util.PRIVACY_POLICY_URL
-import com.bluetoothchat.core.ui.util.TERMS_OF_USE_URL
 import com.bluetoothchat.feature.settings.SettingsAnalyticsClient
 import com.bluetoothchat.feature.settings.nameResId
 import com.bluetoothchat.feature.settings.ui.contract.AboutSection
@@ -129,14 +127,16 @@ internal class SettingsViewModel @Inject constructor(
     private fun handlePrivacyPolicyClicked(action: SettingsAction.PrivacyPolicyClicked) {
         viewModelScope.launch(dispatcherManager.default) {
             analyticsClient.reportPrivacyPolicyClicked()
-            sendEvent { SettingsEvent.OpenUrl(PRIVACY_POLICY_URL) }
+            val url = config.getLegalsConfig().privacyPolicyUrl
+            sendEvent { SettingsEvent.OpenUrl(url) }
         }
     }
 
     private fun handleTermsOfUseClicked(action: SettingsAction.TermsOfUseClicked) {
         viewModelScope.launch(dispatcherManager.default) {
             analyticsClient.reportTermsOfUseClicked()
-            sendEvent { SettingsEvent.OpenUrl(TERMS_OF_USE_URL) }
+            val url = config.getLegalsConfig().termsOfUseUrl
+            sendEvent { SettingsEvent.OpenUrl(url) }
         }
     }
 

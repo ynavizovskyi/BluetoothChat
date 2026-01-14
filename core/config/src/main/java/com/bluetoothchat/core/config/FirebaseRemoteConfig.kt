@@ -2,6 +2,7 @@ package com.bluetoothchat.core.config
 
 import android.util.Log
 import com.bluetoothchat.core.config.model.AnalyticsConfig
+import com.bluetoothchat.core.config.model.LegalsConfig
 import com.bluetoothchat.core.dispatcher.ApplicationScope
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -20,6 +21,7 @@ class FirebaseRemoteConfig @Inject constructor(
 ) : RemoteConfig {
 
     private val analyticsConfigFlow = MutableStateFlow(defaultAnalyticsConfig)
+    private val legalsConfigFlow = MutableStateFlow(defaultLegalsConfig)
     private val rawConfigFlow = MutableStateFlow(emptyMap<String, Any>())
 
     private val config = FirebaseRemoteConfig.getInstance()
@@ -45,25 +47,40 @@ class FirebaseRemoteConfig @Inject constructor(
 
     private suspend fun parseConfig() {
         val analyticsConfig = getAnalyticsConfig()
+        val legalsConfig = getLegalsConfig()
         val rawConfig = getRawConfig()
         analyticsConfigFlow.value = analyticsConfig
+        legalsConfigFlow.value = legalsConfig
         rawConfigFlow.value = rawConfig
         Log.v("FirebaseRemoteConfig", rawConfig.toString())
     }
-
-    override fun observeAnalyticsConfig() = analyticsConfigFlow
-
-    override fun observeRawConfig() = rawConfigFlow
 
     override suspend fun getAnalyticsConfig(): AnalyticsConfig {
         val analyticsEnabled = config.getBoolean(KEY_ANALYTICS_ENABLED)
         return AnalyticsConfig(analyticsEnabled = analyticsEnabled)
     }
 
+    override fun observeAnalyticsConfig() = analyticsConfigFlow
+
+    override suspend fun getLegalsConfig(): LegalsConfig {
+        val termsOfUseUrl = config.getString(KEY_TERMS_OF_USE_URL)
+        val privacyPolicyUrl = config.getString(KEY_PRIVACY_POLICY_URL)
+        return LegalsConfig(
+            termsOfUseUrl = termsOfUseUrl,
+            privacyPolicyUrl = privacyPolicyUrl,
+        )
+    }
+
+    override fun observeLegalsConfig() = legalsConfigFlow
+
+    override fun observeRawConfig() = rawConfigFlow
+
     //TODO: !!!! NEEDS TO BE UPDATED WITH EVERY NEW VALUE !!!!
     override suspend fun getRawConfig(): Map<String, Any> {
         val rawConfig = mutableMapOf<String, Any>()
         rawConfig[KEY_ANALYTICS_ENABLED] = config.getBoolean(KEY_ANALYTICS_ENABLED)
+        rawConfig[KEY_TERMS_OF_USE_URL] = config.getBoolean(KEY_TERMS_OF_USE_URL)
+        rawConfig[KEY_PRIVACY_POLICY_URL] = config.getBoolean(KEY_PRIVACY_POLICY_URL)
         return rawConfig
     }
 
@@ -72,11 +89,20 @@ class FirebaseRemoteConfig @Inject constructor(
         private const val MINIMUM_FETCH_INTERVAL_SECONDS = 0L
 
         private const val KEY_ANALYTICS_ENABLED = "analytics_enabled"
+        private const val KEY_TERMS_OF_USE_URL = "terms_of_use_url"
+        private const val KEY_PRIVACY_POLICY_URL = "privacy_policy_url"
 
         private val defaultAnalyticsConfig = AnalyticsConfig(analyticsEnabled = false)
 
+        private val defaultLegalsConfig = LegalsConfig(
+            termsOfUseUrl = "https://doc-hosting.flycricket.io/bluetooth-chat-terms-of-use/4f4d7f55-1e53-4257-81a3-aad2cbb0e044/terms",
+            privacyPolicyUrl = "https://doc-hosting.flycricket.io/bluetooth-chat-privacy-policy/bfce3de7-0c38-4098-afbd-95f2accf9b83/privacy",
+        )
+
         private val defaults: Map<String, Any> = mapOf(
             KEY_ANALYTICS_ENABLED to defaultAnalyticsConfig.analyticsEnabled,
+            KEY_TERMS_OF_USE_URL to defaultLegalsConfig.termsOfUseUrl,
+            KEY_PRIVACY_POLICY_URL to defaultLegalsConfig.privacyPolicyUrl,
         )
     }
 }
