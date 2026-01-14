@@ -16,10 +16,4 @@ internal sealed interface SettingsAction : ViewAction {
 
     object TermsOfUseClicked : SettingsAction
 
-    object ContactSupportClicked : SettingsAction
-
-    object OnContactSupportClientResolved : SettingsAction
-
-    object OnContactSupportClientNotFound : SettingsAction
-
 }

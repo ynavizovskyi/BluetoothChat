@@ -11,6 +11,4 @@ internal sealed interface SettingsEvent : ViewOneTimeEvent {
 
     data class OpenUrl(val url: String) : SettingsEvent
 
-    data class OpenEmailClient(val emailAddress: String, val emailSubject: String) : SettingsEvent
-
 }

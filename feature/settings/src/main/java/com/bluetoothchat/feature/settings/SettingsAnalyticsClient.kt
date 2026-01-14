@@ -35,20 +35,11 @@ class SettingsAnalyticsClient @Inject constructor(private val analyticsClient: A
         analyticsClient.logEvent(event = event)
     }
 
-    suspend fun reportContactSupportCLicked() = analyticsClient.logEvent(EVENT_CONTACT_SUPPORT_CLICKED)
-
-    suspend fun reportContactSupportClientResolved() = analyticsClient.logEvent(EVENT_CONTACT_SUPPORT_CLIENT_RESOLVED)
-
-    suspend fun reportContactSupportClientNotFound() = analyticsClient.logEvent(EVENT_CONTACT_SUPPORT_CLIENT_NOT_FOUND)
-
     companion object {
         private const val PROPERTY_VALUE_SCREEN_SOURCE = "settings"
 
         private const val EVENT_SCREEN_SHOWN = "settings_screen_shown"
         private const val EVENT_CHANGE_THEME_CLICKED = "settings_change_theme_clicked"
         private const val EVENT_THEME_CHANGED = "settings_theme_changed"
-        private const val EVENT_CONTACT_SUPPORT_CLICKED = "settings_contact_support_clicked"
-        private const val EVENT_CONTACT_SUPPORT_CLIENT_RESOLVED = "settings_contact_support_client_resolved"
-        private const val EVENT_CONTACT_SUPPORT_CLIENT_NOT_FOUND = "settings_contact_support_client_not_found"
     }
 }

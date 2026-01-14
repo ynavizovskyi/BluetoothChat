@@ -1,7 +1,5 @@
 package com.bluetoothchat.feature.settings.ui
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -70,26 +67,12 @@ private fun ObserveOneTimeEvents(
     navigator: SettingsNavigator,
 ) {
     val uriHandler = LocalUriHandler.current
-    val context = LocalContext.current
 
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is SettingsEvent.NavigateBack -> navigator.navigateBack()
             is SettingsEvent.ShowDialog -> navigator.showDialog(event.params)
             is SettingsEvent.OpenUrl -> uriHandler.safeOpenUri(event.url)
-            is SettingsEvent.OpenEmailClient -> {
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:") // only email apps should handle this
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(event.emailAddress))
-                    putExtra(Intent.EXTRA_SUBJECT, event.emailSubject)
-                }
-                if (intent.resolveActivity(context.packageManager) != null) {
-                    viewModel.handleAction(SettingsAction.OnContactSupportClientResolved)
-                    context.startActivity(intent)
-                } else {
-                    viewModel.handleAction(SettingsAction.OnContactSupportClientNotFound)
-                }
-            }
         }
     }
 
@@ -164,10 +147,6 @@ private fun AboutSection(
         SimpleLinkSectionItem(
             itemName = stringResource(id = CoreUiR.string.terms_of_use),
             onClickListener = { actionListener.invoke(SettingsAction.TermsOfUseClicked) }
-        )
-        SimpleLinkSectionItem(
-            itemName = stringResource(id = CoreUiR.string.contact_support),
-            onClickListener = { actionListener.invoke(SettingsAction.ContactSupportClicked) }
         )
         SimpleInfoSectionItem(
             itemName = stringResource(id = CoreUiR.string.app_version),

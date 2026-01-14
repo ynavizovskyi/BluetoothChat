@@ -6,7 +6,6 @@ import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.bluetoothchat.core.domain.AppInfoProvider
 import com.bluetoothchat.core.prefs.settings.AppSettingsPrefs
 import com.bluetoothchat.core.prefs.settings.model.ChatAppTheme
-import com.bluetoothchat.core.session.Session
 import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dialog.model.DialogOption
 import com.bluetoothchat.core.ui.components.dialog.model.DialogRadioButton
@@ -32,7 +31,6 @@ import com.bluetoothchat.core.ui.R as CoreUiR
 
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
-    private val session: Session,
     private val settingsPrefs: AppSettingsPrefs,
     private val config: RemoteConfig,
     private val dispatcherManager: DispatcherManager,
@@ -81,9 +79,6 @@ internal class SettingsViewModel @Inject constructor(
             is SettingsAction.OnDialogResult -> handleDialogResult(action)
             is SettingsAction.PrivacyPolicyClicked -> handlePrivacyPolicyClicked(action)
             is SettingsAction.TermsOfUseClicked -> handleTermsOfUseClicked(action)
-            is SettingsAction.ContactSupportClicked -> handleContactSupportClicked(action)
-            is SettingsAction.OnContactSupportClientResolved -> handleOnContactSupportClientResolved(action)
-            is SettingsAction.OnContactSupportClientNotFound -> handleOnContactSupportClientNotFound(action)
         }
     }
 
@@ -145,35 +140,8 @@ internal class SettingsViewModel @Inject constructor(
         }
     }
 
-    private fun handleContactSupportClicked(action: SettingsAction.ContactSupportClicked) {
-        viewModelScope.launch(dispatcherManager.default) {
-            analyticsClient.reportContactSupportCLicked()
-
-            val analyticsUserId = session.getAnalyticsUserId()
-            sendEvent {
-                SettingsEvent.OpenEmailClient(
-                    emailAddress = SUPPORT_EMAIL,
-                    emailSubject = "${appInfoProvider.getAppName()} support query $analyticsUserId"
-                )
-            }
-        }
-    }
-
-    private fun handleOnContactSupportClientResolved(action: SettingsAction.OnContactSupportClientResolved) {
-        viewModelScope.launch(dispatcherManager.default) {
-            analyticsClient.reportContactSupportClientResolved()
-        }
-    }
-
-    private fun handleOnContactSupportClientNotFound(action: SettingsAction.OnContactSupportClientNotFound) {
-        viewModelScope.launch(dispatcherManager.default) {
-            analyticsClient.reportContactSupportClientNotFound()
-        }
-    }
-
     companion object {
         private const val SELECT_THEME_DIALOG_ID = 1
 
-        private const val SUPPORT_EMAIL = "sunflowerapplications.help@gmail.com"
     }
 }
