@@ -12,38 +12,37 @@ import com.bluetoothchat.feature.chat.image.ViewImageInputParams
 import com.bluetoothchat.feature.profile.ProfileInputParams
 import com.bluetoothchat.feature.profile.ProfileLaunchMode
 import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.result.OpenResultRecipient
 
 class GroupChatNavigatorImpl(navController: NavController, dialogResultRecipient: OpenResultRecipient<DialogResult>) :
     BaseNavigator(navController, dialogResultRecipient), GroupChatNavigator {
 
     override fun navigateToChatInfoScreen(chatId: String) {
-        navController.navigate(direction = GroupChatInfoScreenDestination(GroupChatInfoInputParams(chatId = chatId)))
+        navController.navigate(GroupChatInfoScreenDestination(GroupChatInfoInputParams(chatId = chatId)).route)
     }
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
         navController.navigate(
-            direction = ProfileScreenDestination(
+            ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Other(
                         userDeviceAddress
                     ),
                     source = SOURCE_GROUP_CHAT,
                 )
-            )
+            ).route
         )
     }
 
     override fun navigateToViewImageScreen(chatId: String, messageId: String) {
         navController.navigate(
-            direction = ViewImageScreenDestination(
+            ViewImageScreenDestination(
                 ViewImageInputParams(
                     chatId = chatId,
                     messageId = messageId,
                     source = SOURCE_GROUP_CHAT,
                 )
-            )
+            ).route
         )
     }
 }

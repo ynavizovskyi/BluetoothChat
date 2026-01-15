@@ -4,7 +4,7 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinCompose)
-    id(Plugins.ksp) version Versions.ksp
+    id(Plugins.ksp)
 }
 
 android {
@@ -48,6 +48,7 @@ dependencies {
     destinationsNavigation()
 
     implementation(Libs.AndroidX.Compose.material)
+    implementation(Libs.AndroidX.Compose.materialIcons)
 
     implementation(Libs.coilCompose)
     implementation(Libs.Accompanist.permissions)

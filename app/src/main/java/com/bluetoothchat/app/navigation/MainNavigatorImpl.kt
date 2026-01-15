@@ -15,7 +15,6 @@ import com.bluetoothchat.feature.profile.ProfileInputParams
 import com.bluetoothchat.feature.profile.ProfileLaunchMode
 import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
 import com.bluetoothchat.feature.settings.ui.destinations.SettingsScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.result.OpenResultRecipient
 
 class MainNavigatorImpl(navController: NavController, dialogResultRecipient: OpenResultRecipient<DialogResult>) :
@@ -23,43 +22,43 @@ class MainNavigatorImpl(navController: NavController, dialogResultRecipient: Ope
 
     override fun navigateToConnectScreen() {
         navController.navigate(
-            direction = ConnectScreenDestination(
+            ConnectScreenDestination(
                 ConnectInputParams(
                     startScanningOnStart = true,
                     source = SOURCE_MAIN,
                 )
-            )
+            ).route
         )
     }
 
     override fun navigateToGroupChatScreen(chatId: String) {
-        navController.navigate(direction = GroupChatScreenDestination(GroupChatInputParams(chatId = chatId, source = SOURCE_MAIN)))
+        navController.navigate(GroupChatScreenDestination(GroupChatInputParams(chatId = chatId, source = SOURCE_MAIN)).route)
     }
 
     override fun navigateToPrivateChatScreen(chatId: String) {
         navController.navigate(
-            direction = PrivateChatScreenDestination(
+            PrivateChatScreenDestination(
                 PrivateChatInputParams(
                     chatId = chatId,
                     source = SOURCE_MAIN,
                 )
-            )
+            ).route
         )
     }
 
     override fun navigateToCurrentUserProfileScreen() {
         navController.navigate(
-            direction = ProfileScreenDestination(
+            ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Me(isInitialSetUp = false),
                     source = SOURCE_MAIN,
                 )
-            )
+            ).route
         )
     }
 
     override fun navigateToSettings() {
-        navController.navigate(direction = SettingsScreenDestination())
+        navController.navigate(SettingsScreenDestination().route)
     }
 }
 

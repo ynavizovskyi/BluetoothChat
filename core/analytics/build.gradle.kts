@@ -3,7 +3,7 @@ import java.util.Properties
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
-    id(Plugins.ksp) version Versions.ksp
+    id(Plugins.ksp)
 }
 
 android {

@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
-    id(Plugins.ksp) version Versions.ksp
+    id(Plugins.ksp)
     id(Plugins.hiltAndroid)
-    id(Plugins.kotlinSerialization) version Versions.kotlinVersion
+    id(Plugins.kotlinSerialization)
     id(Plugins.parcelize)
 }
 

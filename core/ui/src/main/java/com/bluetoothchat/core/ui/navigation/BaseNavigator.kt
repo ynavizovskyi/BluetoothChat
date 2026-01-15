@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dialog.model.DialogResult
 import com.bluetoothchat.core.ui.destinations.DialogDestination
-import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.OpenResultRecipient
 
@@ -25,7 +24,7 @@ open class BaseNavigator(
     }
 
     override fun showDialog(params: DialogInputParams) {
-        navController.navigate(direction = DialogDestination(params))
+        navController.navigate(DialogDestination(params).route)
     }
 
     @Composable

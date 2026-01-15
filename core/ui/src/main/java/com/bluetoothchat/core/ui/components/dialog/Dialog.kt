@@ -28,7 +28,6 @@ fun Dialog(
                             actionPayload = params.actionPayload,
                             option = null,
                         ),
-                        onlyIfResumed = true,
                     )
                 },
                 onOptionSelected = { button ->
@@ -38,7 +37,6 @@ fun Dialog(
                             actionPayload = params.actionPayload,
                             option = DialogOption.ActionButton(id = button.id)
                         ),
-                        onlyIfResumed = true,
                     )
                 },
             )
@@ -56,7 +54,6 @@ fun Dialog(
                             actionPayload = params.actionPayload,
                             option = null,
                         ),
-                        onlyIfResumed = true,
                     )
                 },
                 onOptionSelected = { option ->
@@ -66,7 +63,6 @@ fun Dialog(
                             actionPayload = params.actionPayload,
                             option = option
                         ),
-                        onlyIfResumed = true,
                     )
                 },
             )

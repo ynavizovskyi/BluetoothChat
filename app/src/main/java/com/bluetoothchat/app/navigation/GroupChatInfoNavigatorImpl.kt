@@ -10,7 +10,6 @@ import com.bluetoothchat.feature.connect.group.addusers.AddUsersInputParams
 import com.bluetoothchat.feature.profile.ProfileInputParams
 import com.bluetoothchat.feature.profile.ProfileLaunchMode
 import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.result.OpenResultRecipient
 
 class GroupChatInfoNavigatorImpl(
@@ -19,17 +18,17 @@ class GroupChatInfoNavigatorImpl(
 ) : BaseNavigator(navController, dialogResultRecipient), GroupChatInfoNavigator {
 
     override fun navigateToAddUsersScreen(chatId: String) {
-        navController.navigate(direction = AddUsersScreenDestination(AddUsersInputParams(chatId = chatId)))
+        navController.navigate(AddUsersScreenDestination(AddUsersInputParams(chatId = chatId)).route)
     }
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
         navController.navigate(
-            direction = ProfileScreenDestination(
+            ProfileScreenDestination(
                 ProfileInputParams(
                     mode = ProfileLaunchMode.Other(userDeviceAddress),
                     source = SOURCE_GROUP_CHAT_INFO,
                 )
-            )
+            ).route
         )
     }
 

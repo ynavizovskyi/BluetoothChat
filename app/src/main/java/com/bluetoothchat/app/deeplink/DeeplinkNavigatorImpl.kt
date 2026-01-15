@@ -1,6 +1,7 @@
 package com.bluetoothchat.app.deeplink
 
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.bluetoothchat.core.analytics.consts.SOURCE_NOTIFICATION
 import com.bluetoothchat.feature.chat.destinations.GroupChatScreenDestination
 import com.bluetoothchat.feature.chat.destinations.PrivateChatScreenDestination
@@ -9,8 +10,6 @@ import com.bluetoothchat.feature.chat.privat.PrivateChatInputParams
 import com.bluetoothchat.feature.connect.destinations.ConnectScreenDestination
 import com.bluetoothchat.feature.connect.main.ConnectInputParams
 import com.bluetoothchat.feature.main.destinations.MainScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
-import com.ramcosta.composedestinations.navigation.popBackStack
 import kotlinx.coroutines.flow.first
 
 class DeeplinkNavigatorImpl(
@@ -20,42 +19,57 @@ class DeeplinkNavigatorImpl(
     override suspend fun navigateToConnectScreen() {
         awaitForNavControllerInit()
 
-        navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            direction = ConnectScreenDestination(
+            ConnectScreenDestination(
                 ConnectInputParams(
                     startScanningOnStart = false,
                     source = SOURCE_NOTIFICATION,
                 )
-            )
+            ).route,
+            navOptions = navOptions {
+                popUpTo(
+                    route = MainScreenDestination.route,
+                    popUpToBuilder = { inclusive = false }
+                )
+            },
         )
     }
 
     override suspend fun navigateToPrivateChat(chatId: String) {
         awaitForNavControllerInit()
 
-        navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            direction = PrivateChatScreenDestination(
+            PrivateChatScreenDestination(
                 PrivateChatInputParams(
                     chatId = chatId,
                     source = SOURCE_NOTIFICATION,
                 )
-            )
+            ).route,
+            navOptions = navOptions {
+                popUpTo(
+                    route = MainScreenDestination.route,
+                    popUpToBuilder = { inclusive = false }
+                )
+            },
         )
     }
 
     override suspend fun navigateToGroupChat(chatId: String) {
         awaitForNavControllerInit()
 
-        navController.popBackStack(route = MainScreenDestination, inclusive = false)
         navController.navigate(
-            direction = GroupChatScreenDestination(
+            GroupChatScreenDestination(
                 GroupChatInputParams(
                     chatId = chatId,
                     source = SOURCE_NOTIFICATION,
                 )
-            )
+            ).route,
+            navOptions = navOptions {
+                popUpTo(
+                    route = MainScreenDestination.route,
+                    popUpToBuilder = { inclusive = false }
+                )
+            },
         )
     }
 

@@ -8,7 +8,8 @@ plugins {
     id(Plugins.googleServices)
     id(Plugins.crashlytics)
     id(Plugins.hiltAndroid)
-    id(Plugins.ksp) version Versions.ksp
+    id(Plugins.kotlinSerialization)
+    id(Plugins.ksp)
     id(Plugins.parcelize)
 }
 
