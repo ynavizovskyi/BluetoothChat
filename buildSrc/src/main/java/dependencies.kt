@@ -1,6 +1,6 @@
 object AppVersion {
-    const val code = 8
-    const val name = "1.1.4"
+    const val code = 9
+    const val name = "1.2.0"
 }
 
 object SdkConfig {
