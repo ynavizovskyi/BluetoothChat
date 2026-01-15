@@ -22,7 +22,6 @@ android {
             buildConfigField("String", "APP_UUID", "\"5c8da380-5978-47e3-9299-29bf7d9ae728\"")
         }
         release {
-            isMinifyEnabled = true
             buildConfigField("String", "APP_UUID", "\"de2131d2-a6e9-457a-bfd5-5258762810bc\"")
         }
         create("releaseDebuggable") { initWith(getByName("release")) }

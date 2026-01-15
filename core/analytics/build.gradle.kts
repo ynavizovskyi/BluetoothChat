@@ -28,9 +28,6 @@ android {
         }
         release {
             buildConfigField("String", "AMPLITUDE_API_KEY", properties.getProperty("AMPLITUDE_API_KEY_RELEASE") ?: "\"\"")
-
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         create("releaseDebuggable") { initWith(getByName("release")) }
     }

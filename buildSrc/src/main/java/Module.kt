@@ -21,6 +21,5 @@ object Module {
         const val settings = ":feature:settings"
         const val profile = ":feature:profile"
         const val connect = ":feature:connect"
-        const val paywall = ":feature:paywall"
     }
 }
