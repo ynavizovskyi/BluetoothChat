@@ -1,5 +1,5 @@
 object AppVersion {
-    const val code = 9
+    const val code = 10
     const val name = "1.2.0"
 }
 
