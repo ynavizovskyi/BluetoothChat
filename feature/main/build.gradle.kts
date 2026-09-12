@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.kotlinAndroid)
     id(Plugins.kotlinCompose)
     id(Plugins.ksp)
 }
@@ -28,11 +25,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
-        }
     }
 }
 

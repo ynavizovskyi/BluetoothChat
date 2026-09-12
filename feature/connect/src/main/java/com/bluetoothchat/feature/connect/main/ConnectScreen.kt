@@ -34,7 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getString
+//import androidx.core.content.ContextCompat.getString
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -293,12 +293,12 @@ fun shareApk(activity: Activity, uri: Uri) {
     }
 
     try {
-        activity.startActivity(
-            Intent.createChooser(
-                sharingIntent,
-                getString(activity, CoreUiR.string.connect_share_apk)
-            )
-        )
+//        activity.startActivity(
+//            Intent.createChooser(
+//                sharingIntent,
+//                getString(activity, CoreUiR.string.connect_share_apk)
+//            )
+//        )
     } catch (e: ActivityNotFoundException) {
         e.printStackTrace()
 //        Toast.makeText(this, getString(R.string.scan__unable_to_share_apk), Toast.LENGTH_LONG).show()

@@ -10,8 +10,6 @@ object Module {
         const val fileManager = ":core:fileManager"
         const val config = ":core:config"
         const val analytics = ":core:analytics"
-        const val billing = ":core:billing"
-        const val ad = ":core:ad"
         const val permission = ":core:permission"
     }
 

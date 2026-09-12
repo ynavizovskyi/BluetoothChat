@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.kotlinAndroid)
     id(Plugins.kotlinCompose)
     id(Plugins.ksp)
 }
@@ -29,11 +26,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
-        }
-    }
 }
 
 // Need for module nav graph generation
@@ -47,7 +39,6 @@ dependencies {
     hiltAndroid()
     destinationsNavigation()
 
-    implementation(Libs.AndroidX.Compose.material)
     implementation(Libs.AndroidX.Compose.materialIcons)
 
     implementation(Libs.coilCompose)

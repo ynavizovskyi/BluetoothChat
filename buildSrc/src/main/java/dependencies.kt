@@ -12,12 +12,14 @@ object SdkConfig {
 }
 
 object BuildPlugins {
-    const val gradleVersion = "8.13.2"
-    const val androidGradle = "com.android.tools.build:gradle:$gradleVersion"
+    const val agpVersion = "9.2.1"
+    const val androidGradle = "com.android.tools.build:gradle:$agpVersion"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Libs.Kotlin.version}"
+    const val kspGradlePlugin =
+        "com.google.devtools.ksp:symbol-processing-gradle-plugin:${Versions.ksp}"
     const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Libs.Hilt.version}"
-    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:3.0.6"
-    const val googleServicesPlugin = "com.google.gms:google-services:4.4.4"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:3.0.8"
+    const val googleServicesPlugin = "com.google.gms:google-services:4.5.0"
 }
 
 object Libs {
@@ -39,7 +41,7 @@ object Libs {
     }
 
     object Hilt {
-        const val version = "2.57.2"
+        const val version = "2.60.1"
         const val android = "com.google.dagger:hilt-android:$version"
         const val androidCompiler = "com.google.dagger:hilt-android-compiler:$version"
     }
@@ -76,9 +78,6 @@ object Libs {
             const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview"
             const val material3 = "androidx.compose.material3:material3:1.4.0"
             const val materialIcons = "androidx.compose.material:material-icons-core:1.7.8"
-
-            //TODO: needed for destination bottom sheet; consider removing
-            const val material = "androidx.compose.material:material"
             const val runtime = "androidx.compose.runtime:runtime"
             const val liveData = "androidx.compose.runtime:runtime-livedata"
         }

@@ -3,7 +3,6 @@ package com.bluetoothchat.app
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -59,7 +58,6 @@ import com.ramcosta.composedestinations.spec.NavHostEngine
 @OptIn(
     ExperimentalComposeUiApi::class,
     ExperimentalAnimationApi::class,
-    ExperimentalMaterialApi::class,
 )
 @Composable
 internal fun AppContent(

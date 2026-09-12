@@ -1,9 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
     id(Plugins.androidApplication)
-    id(Plugins.kotlinAndroid)
     id(Plugins.kotlinCompose)
     id(Plugins.googleServices)
     id(Plugins.crashlytics)
@@ -80,11 +78,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
-        }
-    }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -112,7 +105,6 @@ dependencies {
     implementation(Libs.Destinations.animationsCore)
     implementation(Libs.AndroidX.appcompat)
     implementation(Libs.AndroidX.coreSplashScreen)
-    implementation(Libs.AndroidX.Compose.material)
 
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.analytics)

@@ -5,7 +5,6 @@ import java.util.Properties
 
 private const val implementation = "implementation"
 private const val debugImplementation = "debugImplementation"
-private const val kapt = "kapt"
 private const val ksp = "ksp"
 
 fun Properties.fromFile(project: Project, path: String): Properties {
@@ -29,9 +28,6 @@ fun DependencyHandler.hiltAndroid() {
     add(implementation, Libs.AndroidX.Hilt.compose)
     add(implementation, Libs.Hilt.android)
     add(ksp, Libs.Hilt.androidCompiler)
-
-    //https://github.com/google/dagger/issues/5059
-    add(ksp, "org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0")
 }
 
 fun DependencyHandler.destinationsNavigation() {
