@@ -36,7 +36,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -58,6 +57,7 @@ import com.bluetoothchat.feature.chat.image.contract.ViewImageState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.ramcosta.composedestinations.annotation.Destination
 import java.io.File
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 private val SaveActionSize = 56.dp
@@ -66,7 +66,7 @@ private val SaveActionPadding = 16.dp
 @Destination(navArgsDelegate = ViewImageInputParams::class)
 @Composable
 fun ViewImageScreen(navigator: ViewImageNavigator) {
-    val viewModel: ViewImageViewModel = hiltViewModel()
+    val viewModel: ViewImageViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 

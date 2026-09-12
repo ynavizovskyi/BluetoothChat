@@ -3,11 +3,8 @@ package com.bluetoothchat.app.notification
 import android.app.Activity
 import com.bluetoothchat.core.bluetooth.notification.ActivityKiller
 import java.lang.ref.WeakReference
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ActivityKillerImpl @Inject constructor() : ActivityKiller {
+class ActivityKillerImpl : ActivityKiller {
 
     private var activity: WeakReference<Activity?> = WeakReference(null)
 

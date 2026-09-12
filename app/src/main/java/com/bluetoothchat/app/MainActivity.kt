@@ -19,20 +19,16 @@ import com.bluetoothchat.app.splash.destinations.SplashScreenDestination
 import com.bluetoothchat.core.bluetooth.notification.ActivityKiller
 import com.bluetoothchat.core.bluetooth.notification.ChatAppDeeplink
 import com.bluetoothchat.core.prefs.settings.AppSettingsPrefs
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), KoinComponent {
 
-    @Inject
-    lateinit var deeplinkManager: DeeplinkManager
+    private val deeplinkManager: DeeplinkManager by inject()
 
-    @Inject
-    lateinit var appSettingsPrefs: AppSettingsPrefs
+    private val appSettingsPrefs: AppSettingsPrefs by inject()
 
-    @Inject
-    lateinit var activityKiller: ActivityKiller
+    private val activityKiller: ActivityKiller by inject()
 
     private var displaySplashScreen = true
 

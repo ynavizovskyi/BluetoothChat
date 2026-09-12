@@ -19,16 +19,13 @@ import com.bluetoothchat.feature.settings.ui.contract.DebugSection
 import com.bluetoothchat.feature.settings.ui.contract.SettingsAction
 import com.bluetoothchat.feature.settings.ui.contract.SettingsEvent
 import com.bluetoothchat.feature.settings.ui.contract.SettingsState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@HiltViewModel
-internal class SettingsViewModel @Inject constructor(
+internal class SettingsViewModel(
     private val settingsPrefs: AppSettingsPrefs,
     private val config: RemoteConfig,
     private val dispatcherManager: DispatcherManager,

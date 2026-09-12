@@ -12,11 +12,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MessageDataSource @Inject constructor(
+class MessageDataSource(
     databaseManager: DatabaseManager,
     private val dispatcherManager: DispatcherManager,
 ) {

@@ -40,7 +40,6 @@ import com.bluetoothchat.core.ui.util.combine
 import com.bluetoothchat.feature.main.contract.MainAction
 import com.bluetoothchat.feature.main.contract.MainEvent
 import com.bluetoothchat.feature.main.contract.MainState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
@@ -51,11 +50,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@HiltViewModel
-internal class MainViewModel @Inject constructor(
+internal class MainViewModel(
     private val btServiceManager: BtServiceManager,
     private val communicationManager: CommunicationManagerImpl,
     private val session: Session,

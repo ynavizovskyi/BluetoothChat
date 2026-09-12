@@ -17,7 +17,6 @@ object BuildPlugins {
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Libs.Kotlin.version}"
     const val kspGradlePlugin =
         "com.google.devtools.ksp:symbol-processing-gradle-plugin:${Versions.ksp}"
-    const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Libs.Hilt.version}"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:3.0.8"
     const val googleServicesPlugin = "com.google.gms:google-services:4.5.0"
 }
@@ -40,10 +39,11 @@ object Libs {
         }
     }
 
-    object Hilt {
-        const val version = "2.60.1"
-        const val android = "com.google.dagger:hilt-android:$version"
-        const val androidCompiler = "com.google.dagger:hilt-android-compiler:$version"
+    object Koin {
+        private const val version = "4.2.1"
+        const val core = "io.insert-koin:koin-core:$version"
+        const val compose = "io.insert-koin:koin-compose:$version"
+        const val composeViewModel = "io.insert-koin:koin-compose-viewmodel:$version"
     }
 
     object Room {
@@ -67,6 +67,7 @@ object Libs {
 
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:1.7.1"
+        const val coreKtx = "androidx.core:core-ktx:1.18.0"
         const val coreSplashScreen = "androidx.core:core-splashscreen:1.2.0"
         const val paletteKtx = "androidx.palette:palette-ktx:1.0.0"
 
@@ -86,11 +87,6 @@ object Libs {
             private const val version = "2.10.0"
             const val runtumeCompose = "androidx.lifecycle:lifecycle-runtime-compose:$version"
             const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
-        }
-
-        object Hilt {
-            const val compose = "androidx.hilt:hilt-navigation-compose:1.3.0"
-            const val compiler = "androidx.hilt:compiler:1.2.0"
         }
     }
 

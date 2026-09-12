@@ -38,7 +38,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.ui.ChatAppToolbar
@@ -77,6 +76,7 @@ import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoActio
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoEvent
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoState
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 
 val UserItemHorizontalPadding = ScreenContentHorizontalPadding
 val UserItemVerticalPadding = 6.dp
@@ -87,7 +87,7 @@ val UserItemContentHorizontalPadding = 12.dp
 @Destination(navArgsDelegate = GroupChatInfoInputParams::class)
 @Composable
 fun GroupChatInfoScreen(navigator: GroupChatInfoNavigator) {
-    val viewModel: GroupChatInfoViewModel = hiltViewModel()
+    val viewModel: GroupChatInfoViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

@@ -5,14 +5,10 @@ import android.content.Context
 import com.bluetoothchat.app.MainActivity
 import com.bluetoothchat.core.bluetooth.notification.ChatAppDeeplink
 import com.bluetoothchat.core.bluetooth.notification.NotificationIntentCreator
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Random
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NotificationIntentCreatorImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+class NotificationIntentCreatorImpl(
+    private val context: Context,
 ) : NotificationIntentCreator {
 
     val random = Random()

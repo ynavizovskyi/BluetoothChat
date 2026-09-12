@@ -21,19 +21,15 @@ import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.bluetoothchat.core.domain.model.MessageContent
 import com.bluetoothchat.core.domain.model.Picture
 import com.bluetoothchat.core.filemanager.file.FileManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.Closeable
 import java.io.File
 import java.io.FileOutputStream
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.jvm.Throws
 
-@Singleton
-class ImageProcessor @Inject constructor(
-    @ApplicationContext private val context: Context,
+class ImageProcessor(
+    private val context: Context,
     private val fileManager: FileManager,
     private val dispatcherManager: DispatcherManager,
 ) {

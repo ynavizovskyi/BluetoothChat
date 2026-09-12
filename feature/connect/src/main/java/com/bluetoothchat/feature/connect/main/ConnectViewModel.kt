@@ -23,7 +23,6 @@ import com.bluetoothchat.feature.connect.destinations.ConnectScreenDestination
 import com.bluetoothchat.feature.connect.main.contract.ConnectAction
 import com.bluetoothchat.feature.connect.main.contract.ConnectEvent
 import com.bluetoothchat.feature.connect.main.contract.ConnectState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -31,11 +30,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
-import javax.inject.Inject
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@HiltViewModel
-internal class ConnectViewModel @Inject constructor(
+internal class ConnectViewModel(
     private val btServiceManager: BtServiceManager,
     private val scanner: BtScanner,
     private val communicationManager: CommunicationManagerImpl,

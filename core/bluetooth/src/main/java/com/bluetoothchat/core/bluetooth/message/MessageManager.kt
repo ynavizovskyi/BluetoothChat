@@ -14,11 +14,8 @@ import com.bluetoothchat.core.domain.model.Message
 import com.bluetoothchat.core.domain.model.User
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MessageManager @Inject constructor(
+class MessageManager(
     private val json: Json,
 ) {
 

@@ -23,11 +23,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ConnectionDelegateImpl @Inject constructor(
+class ConnectionDelegateImpl(
     private val dispatcherManager: DispatcherManager,
     private val applicationScope: ApplicationScope,
     private val groupChatManager: GroupChatDelegateImpl,

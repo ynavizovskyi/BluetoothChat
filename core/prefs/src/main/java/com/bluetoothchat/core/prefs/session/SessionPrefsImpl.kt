@@ -4,13 +4,9 @@ import android.content.Context
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.bluetoothchat.core.prefs.USER_DEVICE_ADDRESS_NOT_SET
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class SessionPrefsImpl @Inject constructor(
-    @ApplicationContext context: Context,
+class SessionPrefsImpl(
+    context: Context,
     dispatcherManager: DispatcherManager,
 ) : SessionPrefs {
 

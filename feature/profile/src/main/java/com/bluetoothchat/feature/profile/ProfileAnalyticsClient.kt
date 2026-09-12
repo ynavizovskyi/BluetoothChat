@@ -3,11 +3,8 @@ package com.bluetoothchat.feature.profile
 import com.bluetoothchat.core.analytics.AnalyticsClient
 import com.bluetoothchat.core.analytics.AnalyticsEvent
 import com.bluetoothchat.core.analytics.consts.PROPERTY_SOURCE
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ProfileAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class ProfileAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShownMyProfile(isInitialSetup: Boolean, source: String) {
         val event = AnalyticsEvent(

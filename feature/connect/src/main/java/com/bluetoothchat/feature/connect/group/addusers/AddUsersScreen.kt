@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.permission.rememberBluetoothPermissionsState
@@ -50,11 +49,12 @@ import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserState
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUsersAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 
 @Destination(navArgsDelegate = AddUsersInputParams::class)
 @Composable
 fun AddUsersScreen(navigator: AddUsersNavigator) {
-    val viewModel: AddUserViewModel = hiltViewModel()
+    val viewModel: AddUserViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

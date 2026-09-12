@@ -3,16 +3,12 @@ package com.bluetoothchat.core.filemanager.file
 import android.content.Context
 import android.net.Uri
 import com.bluetoothchat.core.dispatcher.DispatcherManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FileManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+class FileManager(
+    private val context: Context,
     private val dispatcherManager: DispatcherManager,
 ) {
 

@@ -36,7 +36,7 @@ ksp {
 
 dependencies {
     compose()
-    hiltAndroid()
+    koinCompose()
     destinationsNavigation()
 
     implementation(Libs.AndroidX.Compose.materialIcons)

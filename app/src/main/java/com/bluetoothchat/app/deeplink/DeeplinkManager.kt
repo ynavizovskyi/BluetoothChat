@@ -3,16 +3,12 @@ package com.bluetoothchat.app.deeplink
 import android.content.Context
 import com.bluetoothchat.core.bluetooth.notification.ChatAppDeeplink
 import com.bluetoothchat.core.dispatcher.ApplicationScope
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class DeeplinkManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+class DeeplinkManager(
+    private val context: Context,
     private val applicationScope: ApplicationScope,
 ) {
 

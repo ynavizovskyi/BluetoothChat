@@ -24,10 +24,13 @@ fun DependencyHandler.compose() {
     add(implementation, Libs.AndroidX.Compose.liveData)
 }
 
-fun DependencyHandler.hiltAndroid() {
-    add(implementation, Libs.AndroidX.Hilt.compose)
-    add(implementation, Libs.Hilt.android)
-    add(ksp, Libs.Hilt.androidCompiler)
+fun DependencyHandler.koin() {
+    add(implementation, Libs.Koin.core)
+}
+
+fun DependencyHandler.koinCompose() {
+    add(implementation, Libs.Koin.compose)
+    add(implementation, Libs.Koin.composeViewModel)
 }
 
 fun DependencyHandler.destinationsNavigation() {

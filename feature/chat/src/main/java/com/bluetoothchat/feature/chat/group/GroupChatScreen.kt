@@ -37,7 +37,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.permission.isGranted
@@ -81,12 +80,13 @@ import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 @Destination(navArgsDelegate = GroupChatInputParams::class)
 @Composable
 fun GroupChatScreen(navigator: GroupChatNavigator) {
-    val viewModel: GroupChatViewModel = hiltViewModel()
+    val viewModel: GroupChatViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val lazyListState = rememberLazyListState()

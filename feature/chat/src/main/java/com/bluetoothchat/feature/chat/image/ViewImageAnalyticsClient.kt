@@ -3,11 +3,8 @@ package com.bluetoothchat.feature.chat.image
 import com.bluetoothchat.core.analytics.AnalyticsClient
 import com.bluetoothchat.core.analytics.AnalyticsEvent
 import com.bluetoothchat.core.analytics.consts.PROPERTY_SOURCE
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewImageAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class ViewImageAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown(source: String) {
         val event = AnalyticsEvent(

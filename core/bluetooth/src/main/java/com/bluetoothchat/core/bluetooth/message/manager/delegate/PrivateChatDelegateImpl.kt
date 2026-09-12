@@ -22,11 +22,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PrivateChatDelegateImpl @Inject constructor(
+class PrivateChatDelegateImpl(
     private val chatDataSource: ChatDataSource,
     private val messageDataSource: MessageDataSource,
     private val userDataSource: UserDataSource,

@@ -5,11 +5,8 @@ import com.bluetoothchat.core.domain.model.User
 import com.bluetoothchat.core.filemanager.file.FileManager
 import com.bluetoothchat.core.session.Session
 import com.bluetoothchat.core.ui.model.ViewUser
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewUserMapper @Inject constructor(private val fileManager: FileManager, private val session: Session) {
+class ViewUserMapper(private val fileManager: FileManager, private val session: Session) {
 
     suspend fun map(
         user: User,

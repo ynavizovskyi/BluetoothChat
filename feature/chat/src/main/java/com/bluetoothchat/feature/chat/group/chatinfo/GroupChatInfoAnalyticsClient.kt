@@ -4,11 +4,8 @@ import com.bluetoothchat.core.analytics.AnalyticsClient
 import com.bluetoothchat.core.analytics.AnalyticsEvent
 import com.bluetoothchat.core.analytics.toPropertyMap
 import com.bluetoothchat.core.domain.model.Chat
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GroupChatInfoAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class GroupChatInfoAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown(chat: Chat.Group) {
         val event = AnalyticsEvent(

@@ -1,7 +1,5 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.ksp)
-    id(Plugins.hiltAndroid)
     id(Plugins.kotlinSerialization)
     id(Plugins.parcelize)
 }
@@ -33,8 +31,9 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
+    implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.Kotlin.serialization)
     implementation(Libs.Kotlin.Coroutines.core)
     

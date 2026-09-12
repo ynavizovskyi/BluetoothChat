@@ -3,11 +3,8 @@ package com.bluetoothchat.core.ui.model.mapper.chat
 import com.bluetoothchat.core.domain.model.Chat
 import com.bluetoothchat.core.session.Session
 import com.bluetoothchat.core.ui.model.ViewChatAction
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewGroupChatActionMapper @Inject constructor(
+class ViewGroupChatActionMapper(
     private val session: Session,
 ) {
 

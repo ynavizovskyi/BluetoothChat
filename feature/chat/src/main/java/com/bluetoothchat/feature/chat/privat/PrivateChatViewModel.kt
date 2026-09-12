@@ -41,7 +41,6 @@ import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatAction
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatEvent
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -49,11 +48,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@HiltViewModel
-internal class PrivateChatViewModel @Inject constructor(
+internal class PrivateChatViewModel(
     savedStateHandle: SavedStateHandle,
     private val btServiceManager: BtServiceManager,
     private val dispatcherManager: DispatcherManager,

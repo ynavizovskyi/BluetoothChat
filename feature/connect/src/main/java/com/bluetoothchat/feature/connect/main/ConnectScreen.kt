@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 //import androidx.core.content.ContextCompat.getString
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.permission.rememberBluetoothPermissionsState
@@ -65,12 +64,13 @@ import com.bluetoothchat.feature.connect.main.contract.ConnectEvent
 import com.bluetoothchat.feature.connect.main.contract.ConnectState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 @Destination(navArgsDelegate = ConnectInputParams::class)
 @Composable
 fun ConnectScreen(navigator: ConnectNavigator) {
-    val viewModel: ConnectViewModel = hiltViewModel()
+    val viewModel: ConnectViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

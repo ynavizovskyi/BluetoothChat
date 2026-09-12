@@ -10,11 +10,8 @@ import com.bluetoothchat.core.analytics.consts.createBluetoothPermissionDeniedEv
 import com.bluetoothchat.core.analytics.consts.createBluetoothPermissionGrantedEvent
 import com.bluetoothchat.core.analytics.consts.createNotificationPermissionDeniedEvent
 import com.bluetoothchat.core.analytics.consts.createNotificationPermissionGrantedEvent
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MainAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class MainAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown(chatCount: Int) {
         analyticsClient.logEvent(name = EVENT_SCREEN_SHOWN, params = mapOf(PROPERTY_CHAT_COUNT to chatCount))

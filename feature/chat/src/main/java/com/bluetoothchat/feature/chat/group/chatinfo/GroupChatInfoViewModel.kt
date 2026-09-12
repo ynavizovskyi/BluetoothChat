@@ -23,17 +23,14 @@ import com.bluetoothchat.feature.chat.group.chatinfo.contract.EditMode
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoAction
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoEvent
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class GroupChatInfoViewModel @Inject constructor(
+internal class GroupChatInfoViewModel(
     savedStateHandle: SavedStateHandle,
     private val session: Session,
     private val chatDataSource: ChatDataSource,

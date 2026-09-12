@@ -12,14 +12,10 @@ import com.bluetoothchat.core.ui.model.ViewMessageContent
 import com.bluetoothchat.core.ui.model.primaryContent
 import com.bluetoothchat.feature.chat.image.saver.ImageSaver
 import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MessageActionHandlerDelegate @Inject constructor(
-    @ApplicationContext private val context: Context,
+class MessageActionHandlerDelegate(
+    private val context: Context,
     private val imageSaver: ImageSaver,
     private val dispatcherManager: DispatcherManager,
 ) {

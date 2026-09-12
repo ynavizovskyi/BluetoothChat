@@ -31,7 +31,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.ui.ChatAppToolbar
@@ -63,12 +62,13 @@ import com.bluetoothchat.feature.profile.contract.ProfileAction
 import com.bluetoothchat.feature.profile.contract.ProfileEvent
 import com.bluetoothchat.feature.profile.contract.ProfileState
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 @Destination(navArgsDelegate = ProfileInputParams::class)
 @Composable
 fun ProfileScreen(navigator: ProfileNavigator) {
-    val viewModel: ProfileViewModel = hiltViewModel()
+    val viewModel: ProfileViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

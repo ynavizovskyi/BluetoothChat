@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
     implementation(Libs.Room.runtime)
     implementation(Libs.Room.ktx)

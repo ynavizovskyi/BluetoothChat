@@ -26,17 +26,13 @@ import com.bluetoothchat.core.domain.model.toShortDescription
 import com.bluetoothchat.core.filemanager.file.FileManager
 import com.bluetoothchat.core.filemanager.file.FileState
 import com.bluetoothchat.core.filemanager.image.ImageProcessor
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NotificationManagerWrapper @Inject constructor(
-    @ApplicationContext private val context: Context,
+class NotificationManagerWrapper(
+    private val context: Context,
     private val intentCreator: NotificationIntentCreator,
     private val stringProvider: NotificationStringProvider,
     private val fileManager: FileManager,

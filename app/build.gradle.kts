@@ -5,7 +5,6 @@ plugins {
     id(Plugins.kotlinCompose)
     id(Plugins.googleServices)
     id(Plugins.crashlytics)
-    id(Plugins.hiltAndroid)
     id(Plugins.kotlinSerialization)
     id(Plugins.ksp)
     id(Plugins.parcelize)
@@ -97,7 +96,8 @@ ksp {
 
 dependencies {
     compose()
-    hiltAndroid()
+    koin()
+    koinCompose()
     destinationsNavigation()
 
     implementation(Libs.Kotlin.stdlib)

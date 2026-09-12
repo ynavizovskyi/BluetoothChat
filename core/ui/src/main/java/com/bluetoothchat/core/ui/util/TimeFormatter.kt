@@ -2,17 +2,13 @@ package com.bluetoothchat.core.ui.util
 
 import android.content.Context
 import com.bluetoothchat.core.ui.R
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.DateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TimeFormatter @Inject constructor(
-    @ApplicationContext private val context: Context,
+class TimeFormatter(
+    private val context: Context,
 ) {
     private val locale = Locale.getDefault()
     private val timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, locale)

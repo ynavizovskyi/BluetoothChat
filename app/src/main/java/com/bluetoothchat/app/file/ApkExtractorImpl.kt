@@ -7,7 +7,6 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import com.bluetoothchat.app.BuildConfig
 import com.bluetoothchat.core.filemanager.ApkExtractor
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -16,12 +15,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import javax.inject.Inject
-import javax.inject.Singleton
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Singleton
-class ApkExtractorImpl @Inject constructor(@ApplicationContext private val context: Context) : ApkExtractor {
+class ApkExtractorImpl(private val context: Context) : ApkExtractor {
 
     override suspend fun extractApk(): Uri? {
         val application = context.packageManager

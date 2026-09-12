@@ -7,12 +7,9 @@ import com.bluetoothchat.core.session.Session
 import com.bluetoothchat.core.ui.mvi.MviViewModel
 import com.bluetoothchat.core.ui.mvi.contract.ViewAction
 import com.bluetoothchat.core.ui.mvi.contract.ViewState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class SplashScreenViewModel @Inject constructor(
+internal class SplashScreenViewModel(
     private val session: Session,
     private val dispatcherManager: DispatcherManager,
 ) : MviViewModel<ViewState, ViewAction, SplashScreenEvent>(SplashScreenState) {

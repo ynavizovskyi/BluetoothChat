@@ -5,11 +5,8 @@ import com.bluetoothchat.core.bluetooth.notification.NotificationManagerWrapper
 import com.bluetoothchat.core.domain.model.Chat
 import com.bluetoothchat.core.domain.model.Message
 import com.bluetoothchat.core.domain.model.User
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NotificationDelegateImpl @Inject constructor(
+class NotificationDelegateImpl(
     private val notificationManager: NotificationManagerWrapper,
 ) : NotificationDelegate {
 

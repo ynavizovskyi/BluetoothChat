@@ -18,11 +18,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CommunicationManagerImpl @Inject constructor(
+class CommunicationManagerImpl(
     private val dispatcherManager: DispatcherManager,
     private val applicationScope: ApplicationScope,
     private val connectionManager: BtConnectionManager,

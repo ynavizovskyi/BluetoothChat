@@ -36,7 +36,7 @@ ksp {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
     compose()
     destinationsNavigation()
 

@@ -2,11 +2,8 @@ package com.bluetoothchat.core.ui.model.mapper.chat
 
 import com.bluetoothchat.core.domain.model.Chat
 import com.bluetoothchat.core.ui.model.ViewChat
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewChatMapper @Inject constructor(
+class ViewChatMapper(
     private val privateChatMapper: ViewPrivateChatMapper,
     private val groupChatMapper: ViewGroupChatMapper,
 ) {

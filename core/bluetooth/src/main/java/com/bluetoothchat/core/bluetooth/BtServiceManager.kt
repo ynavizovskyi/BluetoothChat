@@ -7,16 +7,12 @@ import android.os.IBinder
 import android.util.Log
 import com.bluetoothchat.core.dispatcher.ApplicationScope
 import com.bluetoothchat.core.dispatcher.DispatcherManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-@Singleton
-class BtServiceManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+class BtServiceManager(
+    private val context: Context,
     private val applicationScope: ApplicationScope,
     private val dispatcherManager: DispatcherManager,
 ) {

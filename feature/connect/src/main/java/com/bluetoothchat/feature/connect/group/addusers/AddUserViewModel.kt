@@ -25,7 +25,6 @@ import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserEvent
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserState
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUsersAction
 import com.bluetoothchat.feature.connect.group.addusers.data.ViewBtDeviceWithUserWithMembership
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -33,10 +32,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
-import javax.inject.Inject
 
-@HiltViewModel
-internal class AddUserViewModel @Inject constructor(
+internal class AddUserViewModel(
     savedStateHandle: SavedStateHandle,
     private val btServiceManager: BtServiceManager,
     private val scanner: BtScanner,

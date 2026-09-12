@@ -25,13 +25,10 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
 //TODO: concurrency issues here because of the map
 //https://stackoverflow.com/questions/68473491/under-which-circumstances-can-toset-throw-an-java-lang-illegalargumentexception
-@Singleton
-class BtConnectionManager @Inject constructor(
+class BtConnectionManager(
     private val btScanner: BtScanner,
     private val dispatcherManager: DispatcherManager,
     private val applicationScope: ApplicationScope,

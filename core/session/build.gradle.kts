@@ -1,6 +1,5 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.ksp)
 }
 
 android {
@@ -24,7 +23,7 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.crashlytics)

@@ -1,23 +1,25 @@
 package com.bluetoothchat.app
 
 import android.app.Application
-import android.util.Log
-import com.bluetoothchat.core.bluetooth.BtServiceManager
+import android.content.Context
 import com.bluetoothchat.core.session.Session
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.dsl.module
 
-@HiltAndroidApp
-class BluetoothChatApp : Application() {
+class BluetoothChatApp : Application(), KoinComponent {
 
-    @Inject
-    lateinit var session: Session
-
-    @Inject
-    lateinit var btServiceManager: BtServiceManager
+    private val session: Session by inject()
 
     override fun onCreate() {
         super.onCreate()
+
+        initKoin(
+            appModule = module {
+                single<Context> { this@BluetoothChatApp }
+            }
+        )
+
         //Initializing dependencies that should exist from the very start of the app
         session.init()
     }

@@ -7,5 +7,4 @@ object Plugins {
     const val googleServices = "com.google.gms.google-services"
     const val crashlytics = "com.google.firebase.crashlytics"
     const val parcelize = "kotlin-parcelize"
-    const val hiltAndroid = "com.google.dagger.hilt.android"
 }

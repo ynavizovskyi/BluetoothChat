@@ -3,13 +3,9 @@ package com.bluetoothchat.core.prefs.billing
 import android.content.Context
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class BillingPrefsImp @Inject constructor(
-    @ApplicationContext context: Context,
+class BillingPrefsImp(
+    context: Context,
     dispatcherManager: DispatcherManager,
 ) : BillingPrefs {
 

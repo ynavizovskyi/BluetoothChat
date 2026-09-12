@@ -15,12 +15,9 @@ import com.bluetoothchat.feature.chat.image.contract.ViewImageEvent
 import com.bluetoothchat.feature.chat.image.contract.ViewImageState
 import com.bluetoothchat.feature.chat.image.saver.ImageSaver
 import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class ViewImageViewModel @Inject constructor(
+internal class ViewImageViewModel(
     savedStateHandle: SavedStateHandle,
     private val messageDataSource: MessageDataSource,
     private val dispatcherManager: DispatcherManager,

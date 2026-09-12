@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.ui.ChatAppToolbar
@@ -43,12 +42,13 @@ import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupAction
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupEvent
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupState
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 @Destination
 @Composable
 fun CreateGroupScreen(navigator: CreateGroupNavigator) {
-    val viewModel: CreateGroupViewModel = hiltViewModel()
+    val viewModel: CreateGroupViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

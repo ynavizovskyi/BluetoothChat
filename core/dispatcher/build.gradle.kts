@@ -1,6 +1,5 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.ksp)
 }
 
 android {
@@ -24,7 +23,6 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
-
+    implementation(Libs.Kotlin.Coroutines.core)
 }
 

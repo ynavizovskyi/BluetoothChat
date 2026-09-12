@@ -14,7 +14,6 @@ import com.bluetoothchat.core.bluetooth.BuildConfig
 import com.bluetoothchat.core.bluetooth.util.isPhone
 import com.bluetoothchat.core.dispatcher.ApplicationScope
 import com.bluetoothchat.core.dispatcher.DispatcherManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,12 +25,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class BtScanner @Inject constructor(
-    @ApplicationContext private val context: Context,
+class BtScanner(
+    private val context: Context,
     private val applicationScope: ApplicationScope,
     private val dispatcherManager: DispatcherManager,
 ) {

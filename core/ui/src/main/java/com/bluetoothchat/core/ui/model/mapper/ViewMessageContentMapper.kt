@@ -4,11 +4,8 @@ import com.bluetoothchat.core.domain.model.MessageContent
 import com.bluetoothchat.core.filemanager.file.FileManager
 import com.bluetoothchat.core.filemanager.file.FileState
 import com.bluetoothchat.core.ui.model.ViewMessageContent
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewMessageContentMapper @Inject constructor(private val fileManager: FileManager) {
+class ViewMessageContentMapper(private val fileManager: FileManager) {
 
     suspend fun map(
         content: MessageContent,

@@ -11,11 +11,8 @@ import com.bluetoothchat.core.analytics.consts.createBluetoothPermissionGrantedE
 import com.bluetoothchat.core.analytics.consts.createConnectErrorDialogShownEvent
 import com.bluetoothchat.core.analytics.toPropertyMap
 import com.bluetoothchat.core.domain.model.Chat
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AddUsersAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class AddUsersAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown(chat: Chat.Group) {
         val event = AnalyticsEvent(

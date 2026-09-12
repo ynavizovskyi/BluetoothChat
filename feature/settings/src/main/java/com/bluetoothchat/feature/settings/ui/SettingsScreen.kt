@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.ui.SimpleChatAppToolbar
@@ -46,6 +45,7 @@ import com.bluetoothchat.feature.settings.ui.contract.SettingsAction
 import com.bluetoothchat.feature.settings.ui.contract.SettingsEvent
 import com.bluetoothchat.feature.settings.ui.contract.SettingsState
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 private val SectionTitleHorizontalPadding = 16.dp
@@ -54,7 +54,7 @@ private val SectionContentHorizontalPadding = 24.dp
 @Destination(start = true)
 @Composable
 fun SettingsScreen(navigator: SettingsNavigator) {
-    val viewModel: SettingsViewModel = hiltViewModel()
+    val viewModel: SettingsViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)

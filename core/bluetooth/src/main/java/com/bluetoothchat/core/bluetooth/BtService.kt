@@ -15,32 +15,25 @@ import com.bluetoothchat.core.bluetooth.notification.NotificationManagerWrapper
 import com.bluetoothchat.core.dispatcher.ApplicationScope
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.bluetoothchat.core.permission.PermissionManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 internal const val ACTION_STOP = "action.stop"
 
-@AndroidEntryPoint
-class BtService : Service() {
+class BtService : Service(), KoinComponent {
 
-    @Inject
-    lateinit var applicationScope: ApplicationScope
+    private val applicationScope: ApplicationScope by inject()
 
-    @Inject
-    lateinit var dispatcherManager: DispatcherManager
+    private val dispatcherManager: DispatcherManager by inject()
 
-    @Inject
-    lateinit var communicationManager: CommunicationManagerImpl
+    private val communicationManager: CommunicationManagerImpl by inject()
 
-    @Inject
-    lateinit var permissionManager: PermissionManager
+    private val permissionManager: PermissionManager by inject()
 
-    @Inject
-    lateinit var notificationManager: NotificationManagerWrapper
+    private val notificationManager: NotificationManagerWrapper by inject()
 
-    @Inject
-    lateinit var activityKiller: ActivityKiller
+    private val activityKiller: ActivityKiller by inject()
 
     override fun onCreate() {
         super.onCreate()

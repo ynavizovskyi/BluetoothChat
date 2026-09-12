@@ -10,11 +10,8 @@ import com.bluetoothchat.core.analytics.consts.createBluetoothEnabledEvent
 import com.bluetoothchat.core.analytics.consts.createBluetoothPermissionDeniedEvent
 import com.bluetoothchat.core.analytics.consts.createBluetoothPermissionGrantedEvent
 import com.bluetoothchat.core.analytics.consts.createConnectErrorDialogShownEvent
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ConnectAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class ConnectAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown(source: String, bluetoothEnabled: Boolean) {
         val event = AnalyticsEvent(

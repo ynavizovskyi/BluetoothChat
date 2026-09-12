@@ -4,11 +4,8 @@ import com.bluetoothchat.core.filemanager.file.FileState
 import com.bluetoothchat.core.ui.model.ViewMessageAction
 import com.bluetoothchat.core.ui.model.ViewMessageContent
 import com.bluetoothchat.core.ui.model.primaryContent
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewMessageActionsMapper @Inject constructor() {
+class ViewMessageActionsMapper {
 
     suspend fun map(
         content: List<ViewMessageContent>,

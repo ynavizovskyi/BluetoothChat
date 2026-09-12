@@ -22,11 +22,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FileDelegateImpl @Inject constructor(
+class FileDelegateImpl(
     private val dispatcherManager: DispatcherManager,
     private val connectionManager: BtConnectionManager,
     private val fileManager: FileManager,

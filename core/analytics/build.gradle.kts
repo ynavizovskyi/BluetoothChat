@@ -1,7 +1,6 @@
 import java.util.Properties
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.ksp)
 }
 
 android {
@@ -37,7 +36,7 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
     implementation(Libs.Kotlin.stdlib)
     implementation(Libs.Kotlin.Coroutines.core)

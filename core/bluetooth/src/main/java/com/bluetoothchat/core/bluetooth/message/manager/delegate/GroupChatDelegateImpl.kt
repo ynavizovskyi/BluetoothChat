@@ -31,11 +31,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GroupChatDelegateImpl @Inject constructor(
+class GroupChatDelegateImpl(
     private val dispatcherManager: DispatcherManager,
     private val applicationScope: ApplicationScope,
     private val connectionManager: BtConnectionManager,

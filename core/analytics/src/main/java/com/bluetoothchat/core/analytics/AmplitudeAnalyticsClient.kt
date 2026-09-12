@@ -6,16 +6,12 @@ import android.util.Log
 import com.amplitude.api.Amplitude
 import com.bluetoothchat.core.config.RemoteConfig
 import com.bluetoothchat.core.dispatcher.ApplicationScope
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.json.JSONObject
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AmplitudeAnalyticsClient @Inject constructor(
-    @ApplicationContext private val context: Context,
+class AmplitudeAnalyticsClient(
+    private val context: Context,
     private val remoteConfig: RemoteConfig,
     private val applicationScope: ApplicationScope,
 ) : AnalyticsClient {

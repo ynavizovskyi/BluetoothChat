@@ -46,7 +46,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.permission.BluetoothPermissionType
@@ -93,12 +92,13 @@ import com.bluetoothchat.feature.main.contract.MainEvent
 import com.bluetoothchat.feature.main.contract.MainState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 @Destination(start = true, style = StartScreenDestinationStyle::class)
 @Composable
 fun MainScreen(navigator: MainNavigator) {
-    val viewModel: MainViewModel = hiltViewModel()
+    val viewModel: MainViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 

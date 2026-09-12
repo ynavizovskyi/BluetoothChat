@@ -1,7 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinCompose)
-    id(Plugins.ksp)
 }
 
 android {
@@ -29,8 +28,9 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
     compose()
 
+    implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.Accompanist.permissions)
 }

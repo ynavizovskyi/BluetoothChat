@@ -12,12 +12,9 @@ import com.bluetoothchat.core.ui.mvi.MviViewModel
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupAction
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupEvent
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class CreateGroupViewModel @Inject constructor(
+internal class CreateGroupViewModel(
     private val session: Session,
     private val communicationManager: CommunicationManagerImpl,
     private val dispatcherManager: DispatcherManager,

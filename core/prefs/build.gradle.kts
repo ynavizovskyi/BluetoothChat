@@ -1,6 +1,5 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.ksp)
     id(Plugins.parcelize)
 }
 
@@ -25,7 +24,7 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
     implementation(Libs.flowPreferences)
 

@@ -1,7 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.parcelize)
-    id(Plugins.ksp)
 }
 
 android {
@@ -25,8 +24,9 @@ android {
 }
 
 dependencies {
-    hiltAndroid()
+    koin()
 
+    implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.coilCompose)
     implementation(Libs.AndroidX.paletteKtx)
 

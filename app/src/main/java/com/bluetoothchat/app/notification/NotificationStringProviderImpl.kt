@@ -2,14 +2,10 @@ package com.bluetoothchat.app.notification
 
 import android.content.Context
 import com.bluetoothchat.core.bluetooth.notification.NotificationStringProvider
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Singleton
-class NotificationStringProviderImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+class NotificationStringProviderImpl(
+    private val context: Context,
 ) : NotificationStringProvider {
 
     override fun getOngoingNotificationTitle(): String =

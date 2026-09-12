@@ -7,10 +7,9 @@ import com.bluetoothchat.core.ui.model.ViewChatAction
 import com.bluetoothchat.core.ui.mvi.action.ViewActionConfirmation
 import com.bluetoothchat.core.ui.mvi.action.handler.MviViewActionHandlerDelegate
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 //Should not be a singleton to avoid events slipping to other screens
-class ChatActionHandlerDelegate @Inject constructor(
+class ChatActionHandlerDelegate(
     private val communicationManager: CommunicationManagerImpl,
     private val chatDataSource: ChatDataSource,
     private val fileManager: FileManager,

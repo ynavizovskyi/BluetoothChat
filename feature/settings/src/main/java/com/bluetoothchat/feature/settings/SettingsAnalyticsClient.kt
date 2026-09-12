@@ -7,11 +7,8 @@ import com.bluetoothchat.core.analytics.consts.createPrivacyPolicyClickedEvent
 import com.bluetoothchat.core.analytics.consts.createTermsOfUseClickedEvent
 import com.bluetoothchat.core.analytics.toAnalyticsValue
 import com.bluetoothchat.core.prefs.settings.model.ChatAppTheme
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class SettingsAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class SettingsAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown() = analyticsClient.logEvent(EVENT_SCREEN_SHOWN)
 

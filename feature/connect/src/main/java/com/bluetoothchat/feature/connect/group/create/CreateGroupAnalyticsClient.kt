@@ -2,11 +2,8 @@ package com.bluetoothchat.feature.connect.group.create
 
 import com.bluetoothchat.core.analytics.AnalyticsClient
 import com.bluetoothchat.core.analytics.AnalyticsEvent
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CreateGroupAnalyticsClient @Inject constructor(private val analyticsClient: AnalyticsClient) {
+class CreateGroupAnalyticsClient(private val analyticsClient: AnalyticsClient) {
 
     suspend fun reportScreenShown() {
         val event = AnalyticsEvent(

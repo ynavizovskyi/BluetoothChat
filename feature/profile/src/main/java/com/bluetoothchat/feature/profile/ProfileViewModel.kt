@@ -21,16 +21,13 @@ import com.bluetoothchat.feature.profile.contract.ProfileAction
 import com.bluetoothchat.feature.profile.contract.ProfileEvent
 import com.bluetoothchat.feature.profile.contract.ProfileState
 import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@HiltViewModel
-internal class ProfileViewModel @Inject constructor(
+internal class ProfileViewModel(
     private val session: Session,
     private val userDataSource: UserDataSource,
     private val userMapper: ViewUserMapper,

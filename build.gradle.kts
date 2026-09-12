@@ -16,7 +16,6 @@ buildscript {
         classpath(BuildPlugins.androidGradle)
         classpath(BuildPlugins.kotlinGradlePlugin)
         classpath(BuildPlugins.kspGradlePlugin)
-        classpath(BuildPlugins.hiltGradlePlugin)
         classpath(BuildPlugins.crashlytics)
         classpath(BuildPlugins.googleServicesPlugin)
     }

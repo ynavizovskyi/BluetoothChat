@@ -8,11 +8,8 @@ import com.bluetoothchat.core.ui.model.mapper.ViewUserActionsMapper
 import com.bluetoothchat.core.ui.model.mapper.ViewUserMapper
 import com.bluetoothchat.core.ui.util.TimeFormatType
 import com.bluetoothchat.core.ui.util.TimeFormatter
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewGroupChatMapper @Inject constructor(
+class ViewGroupChatMapper(
     private val session: Session,
     private val fileManager: FileManager,
     private val userMapper: ViewUserMapper,

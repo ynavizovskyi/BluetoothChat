@@ -11,11 +11,8 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FirebaseRemoteConfig @Inject constructor(
+class FirebaseRemoteConfig(
     private val dispatcherManager: DispatcherManager,
     private val applicationScope: ApplicationScope,
 ) : RemoteConfig {

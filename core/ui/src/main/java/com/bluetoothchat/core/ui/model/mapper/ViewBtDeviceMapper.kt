@@ -3,11 +3,8 @@ package com.bluetoothchat.core.ui.model.mapper
 import com.bluetoothchat.core.bluetooth.message.ConnectionState
 import com.bluetoothchat.core.bluetooth.scanner.BtDevice
 import com.bluetoothchat.core.ui.model.ViewBtDevice
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewBtDeviceMapper @Inject constructor() {
+class ViewBtDeviceMapper {
 
     suspend fun map(
         device: BtDevice,

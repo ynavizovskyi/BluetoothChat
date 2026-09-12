@@ -5,11 +5,8 @@ import com.bluetoothchat.core.ui.model.ViewChat
 import com.bluetoothchat.core.ui.model.mapper.ViewUserMapper
 import com.bluetoothchat.core.ui.util.TimeFormatType
 import com.bluetoothchat.core.ui.util.TimeFormatter
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ViewPrivateChatMapper @Inject constructor(
+class ViewPrivateChatMapper(
     private val userMapper: ViewUserMapper,
     private val actionsMapper: ViewPrivateChatActionMapper,
     private val timeFormatter: TimeFormatter,

@@ -4,14 +4,10 @@ import android.content.Context
 import com.bluetoothchat.core.dispatcher.DispatcherManager
 import com.bluetoothchat.core.prefs.settings.model.ChatAppTheme
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppSettingsPrefsImpl @Inject constructor(
-    @ApplicationContext context: Context,
+class AppSettingsPrefsImpl(
+    context: Context,
     dispatcherManager: DispatcherManager,
 ) : AppSettingsPrefs {
 

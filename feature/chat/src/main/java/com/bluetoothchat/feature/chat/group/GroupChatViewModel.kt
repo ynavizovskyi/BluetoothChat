@@ -44,17 +44,14 @@ import com.bluetoothchat.feature.chat.group.contract.GroupChatAction
 import com.bluetoothchat.feature.chat.group.contract.GroupChatEvent
 import com.bluetoothchat.feature.chat.group.contract.GroupChatState
 import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class GroupChatViewModel @Inject constructor(
+internal class GroupChatViewModel(
     savedStateHandle: SavedStateHandle,
     private val btServiceManager: BtServiceManager,
     private val dispatcherManager: DispatcherManager,
