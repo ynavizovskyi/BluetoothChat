@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinCompose)
-    id(Plugins.ksp)
+    id(Plugins.kotlinSerialization)
 }
 
 android {
@@ -28,16 +28,11 @@ android {
     }
 }
 
-// Need for module nav graph generation
-ksp {
-    arg("compose-destinations.mode", "navgraphs")
-    arg("compose-destinations.moduleName", "chat")
-}
-
 dependencies {
     compose()
     koinCompose()
-    destinationsNavigation()
+
+    implementation(Libs.Kotlin.serialization)
 
     implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
     implementation(Libs.AndroidX.Compose.materialIcons)

@@ -3,13 +3,11 @@ package com.bluetoothchat.app.splash
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.Lifecycle
 import com.bluetoothchat.core.ui.util.observeWithLifecycle
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.spec.DestinationStyle
 import org.koin.compose.viewmodel.koinViewModel
 
-@Destination(start = true, style = DestinationStyle.Animated.None::class)
 @Composable
-fun SplashScreen(navigator: SplashScreenNavigatorImpl) {
+fun SplashScreen() {
+    val navigator = LocalSplashScreenNavigator.current
     val viewModel: SplashScreenViewModel = koinViewModel()
 
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
@@ -18,5 +16,4 @@ fun SplashScreen(navigator: SplashScreenNavigatorImpl) {
             is SplashScreenEvent.NavigateToProfileSetUpScreen -> navigator.navigateToMyProfile()
         }
     }
-
 }

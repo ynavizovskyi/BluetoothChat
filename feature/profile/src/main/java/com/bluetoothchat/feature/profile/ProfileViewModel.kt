@@ -1,6 +1,5 @@
 package com.bluetoothchat.feature.profile
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.message.manager.CommunicationManagerImpl
 import com.bluetoothchat.core.db.datasource.UserDataSource
@@ -20,7 +19,6 @@ import com.bluetoothchat.feature.profile.contract.EditMode
 import com.bluetoothchat.feature.profile.contract.ProfileAction
 import com.bluetoothchat.feature.profile.contract.ProfileEvent
 import com.bluetoothchat.feature.profile.contract.ProfileState
-import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
@@ -28,6 +26,7 @@ import kotlinx.coroutines.launch
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 internal class ProfileViewModel(
+    private val inputParams: ProfileInputParams,
     private val session: Session,
     private val userDataSource: UserDataSource,
     private val userMapper: ViewUserMapper,
@@ -36,12 +35,9 @@ internal class ProfileViewModel(
     private val fileManager: FileManager,
     private val analyticsClient: ProfileAnalyticsClient,
     private val dispatcherManager: DispatcherManager,
-    savedStateHandle: SavedStateHandle,
 ) : MviViewModel<ProfileState, ProfileAction, ProfileEvent>(
     ProfileState.Loading
 ) {
-
-    private val inputParams = ProfileScreenDestination.argsFrom(savedStateHandle)
 
     init {
         observeState()
@@ -198,7 +194,6 @@ internal class ProfileViewModel(
         setState { meState.copy(editMode = updatedEditMode) }
     }
 
-
     private fun handleExternalGalleryPhotoSelected(action: ProfileAction.ExternalGalleryContentSelected) {
         val meState = state.value as? ProfileState.Loaded.Me ?: return
         val editModeEditing = meState.editMode as? EditMode.Editing ?: return
@@ -227,7 +222,6 @@ internal class ProfileViewModel(
             editModeEditing.copy(updatedName = action.name, displayEmptyUpdatedNameError = action.name.isEmpty())
         setState { meState.copy(editMode = updatedEditMode) }
     }
-
 
     private fun handleColorChanged(action: ProfileAction.OnColorChanged) {
         val meState = state.value as? ProfileState.Loaded.Me ?: return

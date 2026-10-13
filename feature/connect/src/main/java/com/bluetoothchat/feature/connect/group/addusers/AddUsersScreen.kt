@@ -14,6 +14,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,6 +33,8 @@ import com.bluetoothchat.core.ui.components.ContentCrossFade
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.button.NoBgButton
 import com.bluetoothchat.core.ui.components.button.defaultCustomButtonPaddings
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.theme.LocalChatAppColorScheme
 import com.bluetoothchat.core.ui.theme.ScreenContentHorizontalPadding
 import com.bluetoothchat.core.ui.theme.ScreenContentVerticalPadding
@@ -48,13 +52,13 @@ import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserEvent
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserState
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUsersAction
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
-@Destination(navArgsDelegate = AddUsersInputParams::class)
 @Composable
-fun AddUsersScreen(navigator: AddUsersNavigator) {
-    val viewModel: AddUserViewModel = koinViewModel()
+fun AddUsersScreen(params: AddUsersInputParams) {
+    val navigator = LocalAddUsersNavigator.current
+    val viewModel: AddUserViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)
@@ -77,12 +81,20 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(AddUsersAction.OnEnableBluetoothResult(enabled = enabled))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { displayDialogParams.value = null },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is AddUserEvent.NavigateBack -> navigator.navigateBack()
             is AddUserEvent.RequestBluetoothPermission -> bluetoothPermissionsState.launchMultiplePermissionRequest()
             is AddUserEvent.RequestEnabledBluetooth -> enableBluetoothLauncher.launch(createEnableBluetoothIntent())
-            is AddUserEvent.ShowErrorDialog -> navigator.showDialog(params = event.params)
+            is AddUserEvent.ShowErrorDialog -> displayDialogParams.value = event.params
         }
     }
 }

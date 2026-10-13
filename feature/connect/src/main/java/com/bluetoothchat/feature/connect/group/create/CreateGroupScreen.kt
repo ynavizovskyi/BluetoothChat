@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -29,6 +31,8 @@ import com.bluetoothchat.core.ui.ToolbarTitleText
 import com.bluetoothchat.core.ui.components.ChatImage
 import com.bluetoothchat.core.ui.components.CustomTextField
 import com.bluetoothchat.core.ui.components.ScreenContainer
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.profile.ProfileContentHorizontalPadding
 import com.bluetoothchat.core.ui.components.profile.ProfileFieldNameText
 import com.bluetoothchat.core.ui.components.profile.ProfileImageActionIcon
@@ -41,13 +45,12 @@ import com.bluetoothchat.core.ui.util.rememberLauncherForImage
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupAction
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupEvent
 import com.bluetoothchat.feature.connect.group.create.contract.CreateGroupState
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination
 @Composable
-fun CreateGroupScreen(navigator: CreateGroupNavigator) {
+fun CreateGroupScreen() {
+    val navigator = LocalCreateGroupNavigator.current
     val viewModel: CreateGroupViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
@@ -64,12 +67,20 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(CreateGroupAction.ExternalGalleryContentSelected(resultUri))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { displayDialogParams.value = null },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is CreateGroupEvent.NavigateBack -> navigator.navigateBack()
             is CreateGroupEvent.OpenExternalGalleryForImage -> mediaPickerLauncher.launch(createPickImageIntent())
             is CreateGroupEvent.NavigateToGroupInfo -> navigator.navigateToGroupChatInfoScreen(groupChatId = event.groupId)
-            is CreateGroupEvent.ShowErrorDialog -> navigator.showDialog(event.params)
+            is CreateGroupEvent.ShowErrorDialog -> displayDialogParams.value = event.params
         }
     }
 }
@@ -132,7 +143,6 @@ private fun CreateGroupToolbar(actionListener: (CreateGroupAction) -> Unit) {
         Spacer(modifier = Modifier.width(ToolbarIconHorizontalPadding))
         ToolbarBackIconButton(navigateUp = { actionListener(CreateGroupAction.BackButtonClicked) })
         Spacer(modifier = Modifier.width(ToolbarIconHorizontalPadding))
-
 
         ToolbarTitleText(
             modifier = Modifier.weight(1f),

@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -65,6 +66,8 @@ import com.bluetoothchat.core.ui.components.ContentCrossFade
 import com.bluetoothchat.core.ui.components.GroupChatImage
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.UserImage
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dropdown.DropDownDisplayStrategy
 import com.bluetoothchat.core.ui.components.dropdown.DropdownMenuItemModel
 import com.bluetoothchat.core.ui.components.dropdown.ItemDropdownMenuContainer
@@ -78,7 +81,6 @@ import com.bluetoothchat.core.ui.model.text
 import com.bluetoothchat.core.ui.model.toMessageAuthorName
 import com.bluetoothchat.core.ui.model.toShortColor
 import com.bluetoothchat.core.ui.model.toShortDescription
-import com.bluetoothchat.core.ui.navigation.StartScreenDestinationStyle
 import com.bluetoothchat.core.ui.theme.LocalChatAppColorScheme
 import com.bluetoothchat.core.ui.theme.mainItemDivider
 import com.bluetoothchat.core.ui.theme.mainItemMessageText
@@ -91,15 +93,15 @@ import com.bluetoothchat.feature.main.contract.MainAction
 import com.bluetoothchat.feature.main.contract.MainEvent
 import com.bluetoothchat.feature.main.contract.MainState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination(start = true, style = StartScreenDestinationStyle::class)
 @Composable
-fun MainScreen(navigator: MainNavigator) {
+fun MainScreen() {
+    val navigator = LocalMainNavigator.current
     val viewModel: MainViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     ObserveOneTimeEvents(
@@ -168,9 +170,20 @@ private fun ObserveOneTimeEvents(
 
     val activity = LocalContext.current as Activity
     val coroutineScope = rememberCoroutineScope()
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { result ->
+                displayDialogParams.value = null
+                viewModel.handleAction(MainAction.OnDialogResult(result))
+            },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
-            is MainEvent.ShowDialog -> navigator.showDialog(event.params)
+            is MainEvent.ShowDialog -> displayDialogParams.value = event.params
             is MainEvent.RequestNotificationPermission -> notificationPermissionState?.launchPermissionRequest()
             is MainEvent.RequestBluetoothPermissions -> bluetoothPermissionsState.launchMultiplePermissionRequest()
             is MainEvent.ShowGrantBluetoothPermissionsSnackbar -> {
@@ -198,10 +211,6 @@ private fun ObserveOneTimeEvents(
             is MainEvent.NavigateToGroupChatScreen -> navigator.navigateToGroupChatScreen(event.chatId)
             is MainEvent.NavigateToCurrentUserProfileScreen -> navigator.navigateToCurrentUserProfileScreen()
         }
-    }
-
-    navigator.OnDialogResult {
-        viewModel.handleAction(MainAction.OnDialogResult(it))
     }
 }
 

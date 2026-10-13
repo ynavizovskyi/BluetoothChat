@@ -5,7 +5,6 @@ import java.util.Properties
 
 private const val implementation = "implementation"
 private const val debugImplementation = "debugImplementation"
-private const val ksp = "ksp"
 
 fun Properties.fromFile(project: Project, path: String): Properties {
     load(FileInputStream(project.file(path)))
@@ -33,8 +32,8 @@ fun DependencyHandler.koinCompose() {
     add(implementation, Libs.Koin.composeViewModel)
 }
 
-fun DependencyHandler.destinationsNavigation() {
-    add(implementation, Libs.Destinations.core)
-    add(implementation, Libs.Destinations.animationsCore)
-    add(ksp, Libs.Destinations.ksp)
+fun DependencyHandler.navigation3() {
+    add(implementation, Libs.Navigation3.runtime)
+    add(implementation, Libs.Navigation3.ui)
+    add(implementation, Libs.Navigation3.lifecycleViewModel) // Only :composeApp needs this dependency; clean up later
 }

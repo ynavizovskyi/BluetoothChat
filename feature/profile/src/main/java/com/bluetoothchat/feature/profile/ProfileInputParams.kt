@@ -1,16 +1,17 @@
 package com.bluetoothchat.feature.profile
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ProfileInputParams(val mode: ProfileLaunchMode, val source: String)
 
-sealed interface ProfileLaunchMode : Parcelable {
+@Serializable
+sealed interface ProfileLaunchMode {
 
-    @Parcelize
+    @Serializable
     data class Me(val isInitialSetUp: Boolean) : ProfileLaunchMode
 
-    @Parcelize
+    @Serializable
     data class Other(val userDeviceAddress: String) : ProfileLaunchMode
 
 }

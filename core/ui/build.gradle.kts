@@ -1,7 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinCompose)
-    id(Plugins.ksp)
     id(Plugins.parcelize)
 }
 
@@ -29,16 +28,10 @@ android {
     }
 }
 
-// Need for module nav graph generation
-ksp {
-    arg("compose-destinations.mode", "navgraphs")
-    arg("compose-destinations.moduleName", "coreUi")
-}
-
 dependencies {
     koin()
     compose()
-    destinationsNavigation()
+    navigation3()
 
     implementation(Libs.coilCompose)
     implementation(Libs.playReview)

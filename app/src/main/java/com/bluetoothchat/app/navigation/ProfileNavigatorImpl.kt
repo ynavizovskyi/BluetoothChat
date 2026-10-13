@@ -1,27 +1,13 @@
 package com.bluetoothchat.app.navigation
 
-import androidx.navigation.NavController
-import androidx.navigation.navOptions
-import com.bluetoothchat.core.ui.components.dialog.model.DialogResult
-import com.bluetoothchat.core.ui.navigation.BaseNavigator
-import com.bluetoothchat.feature.main.destinations.MainScreenDestination
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.bluetoothchat.feature.profile.ProfileNavigator
-import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
-import com.ramcosta.composedestinations.result.OpenResultRecipient
 
-class ProfileNavigatorImpl(navController: NavController, dialogResultRecipient: OpenResultRecipient<DialogResult>) :
-    BaseNavigator(navController, dialogResultRecipient), ProfileNavigator {
+class ProfileNavigatorImpl(backStack: NavBackStack<NavKey>) : BaseNavigator(backStack), ProfileNavigator {
 
     override fun navigateToMain() {
-        navController.navigate(
-            route = MainScreenDestination().route,
-            navOptions = navOptions {
-                popUpTo(
-                    route = ProfileScreenDestination.route,
-                    popUpToBuilder = { inclusive = true }
-                )
-            },
-        )
+        backStack.add(NavRoutes.Main(screenTransition = ScreenTransition.DEFAULT))
+        backStack.clearUpTo<NavRoutes.Profile>(keepTopElement = false)
     }
 }
-

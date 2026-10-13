@@ -12,10 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import com.bluetoothchat.app.deeplink.DeeplinkManager
-import com.bluetoothchat.app.splash.destinations.SplashScreenDestination
 import com.bluetoothchat.core.bluetooth.notification.ActivityKiller
 import com.bluetoothchat.core.bluetooth.notification.ChatAppDeeplink
 import com.bluetoothchat.core.prefs.settings.AppSettingsPrefs
@@ -31,15 +28,6 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val activityKiller: ActivityKiller by inject()
 
     private var displaySplashScreen = true
-
-    private val navControllerListener = object : NavController.OnDestinationChangedListener {
-        override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-            if (destination.route != SplashScreenDestination.route) {
-                displaySplashScreen = false
-                controller.removeOnDestinationChangedListener(this)
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setUpSplashScreen()
@@ -58,7 +46,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
             AppContent(
                 appSettingsPrefs = appSettingsPrefs,
                 deeplinkManager = deeplinkManager,
-                navControllerListener = navControllerListener,
+                onSplashScreenClosed = { displaySplashScreen = false },
             )
         }
     }

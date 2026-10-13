@@ -53,6 +53,8 @@ import com.bluetoothchat.core.ui.components.ContentCrossFade
 import com.bluetoothchat.core.ui.components.GroupChatImage
 import com.bluetoothchat.core.ui.components.ObserveViewResumedState
 import com.bluetoothchat.core.ui.components.ScreenContainer
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dropdown.DropDownDisplayStrategy
 import com.bluetoothchat.core.ui.components.dropdown.DropDownVisibilityHandler
 import com.bluetoothchat.core.ui.model.ViewMessage
@@ -76,18 +78,19 @@ import com.bluetoothchat.feature.chat.group.contract.GroupChatAction
 import com.bluetoothchat.feature.chat.group.contract.GroupChatEvent
 import com.bluetoothchat.feature.chat.group.contract.GroupChatState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination(navArgsDelegate = GroupChatInputParams::class)
 @Composable
-fun GroupChatScreen(navigator: GroupChatNavigator) {
-    val viewModel: GroupChatViewModel = koinViewModel()
+fun GroupChatScreen(params: GroupChatInputParams) {
+    val navigator = LocalGroupChatNavigator.current
+    val viewModel: GroupChatViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
+
     val snackbarHostState = remember { SnackbarHostState() }
     val lazyListState = rememberLazyListState()
     val inputFieldFocusRequester = remember { FocusRequester() }
@@ -141,13 +144,24 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(GroupChatAction.OnEnableBluetoothResult(enabled = enabled))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { result ->
+                displayDialogParams.value = null
+                viewModel.handleAction(GroupChatAction.OnDialogResult(result))
+            },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is GroupChatEvent.NavigateBack -> navigator.navigateBack()
             is GroupChatEvent.RequestBluetoothPermission -> bluetoothPermissionsState.launchMultiplePermissionRequest()
             is GroupChatEvent.RequestWriteStoragePermission -> writeStoragePermissionState?.launchPermissionRequest()
             is GroupChatEvent.RequestEnabledBluetooth -> enableBluetoothLauncher.launch(createEnableBluetoothIntent())
-            is GroupChatEvent.ShowDialog -> navigator.showDialog(event.params)
+            is GroupChatEvent.ShowDialog -> displayDialogParams.value = event.params
             is GroupChatEvent.NavigateToChatInfoScreenScreen -> navigator.navigateToChatInfoScreen(event.chatId)
             is GroupChatEvent.NavigateToProfileScreen -> navigator.navigateToUserScreen(event.userDeviceAddress)
             is GroupChatEvent.OpenExternalGalleryForImage -> imagePickerLauncher.launch(createPickImageIntent())
@@ -180,8 +194,6 @@ private fun ObserveOneTimeEvents(
             )
         }
     }
-
-    navigator.OnDialogResult { viewModel.handleAction(GroupChatAction.OnDialogResult(it)) }
 
     ObserveViewResumedState { viewModel.handleAction(GroupChatAction.OnResumedStateChanged(it)) }
 }

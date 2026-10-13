@@ -17,6 +17,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,10 +34,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bluetoothchat.core.ui.SimpleChatAppToolbar
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.button.CustomButton
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.theme.LocalChatAppColorScheme
 import com.bluetoothchat.core.ui.theme.settingsSectionDivider
 import com.bluetoothchat.core.ui.util.observeWithLifecycle
 import com.bluetoothchat.core.ui.util.safeOpenUri
+import com.bluetoothchat.feature.settings.LocalSettingsNavigator
 import com.bluetoothchat.feature.settings.SettingsNavigator
 import com.bluetoothchat.feature.settings.nameResId
 import com.bluetoothchat.feature.settings.ui.contract.AboutSection
@@ -44,16 +49,15 @@ import com.bluetoothchat.feature.settings.ui.contract.DebugSection
 import com.bluetoothchat.feature.settings.ui.contract.SettingsAction
 import com.bluetoothchat.feature.settings.ui.contract.SettingsEvent
 import com.bluetoothchat.feature.settings.ui.contract.SettingsState
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 private val SectionTitleHorizontalPadding = 16.dp
 private val SectionContentHorizontalPadding = 24.dp
 
-@Destination(start = true)
 @Composable
-fun SettingsScreen(navigator: SettingsNavigator) {
+fun SettingsScreen() {
+    val navigator = LocalSettingsNavigator.current
     val viewModel: SettingsViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
@@ -68,16 +72,23 @@ private fun ObserveOneTimeEvents(
 ) {
     val uriHandler = LocalUriHandler.current
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { result ->
+                displayDialogParams.value = null
+                viewModel.handleAction(SettingsAction.OnDialogResult(result))
+            },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is SettingsEvent.NavigateBack -> navigator.navigateBack()
-            is SettingsEvent.ShowDialog -> navigator.showDialog(event.params)
+            is SettingsEvent.ShowDialog -> displayDialogParams.value = event.params
             is SettingsEvent.OpenUrl -> uriHandler.safeOpenUri(event.url)
         }
-    }
-
-    navigator.OnDialogResult {
-        viewModel.handleAction(SettingsAction.OnDialogResult(it))
     }
 }
 
@@ -169,10 +180,8 @@ private fun DebugSection(
             SectionHeader(color = Color.Red, name = "Debug")
         }
     ) {
-
     }
 }
-
 
 @Composable
 private fun Section(name: String, content: @Composable ColumnScope.() -> Unit) {

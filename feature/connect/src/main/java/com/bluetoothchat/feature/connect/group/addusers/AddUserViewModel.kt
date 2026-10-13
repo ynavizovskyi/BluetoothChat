@@ -1,6 +1,5 @@
 package com.bluetoothchat.feature.connect.group.addusers
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.BtServiceManager
 import com.bluetoothchat.core.bluetooth.message.ConnectionState
@@ -20,7 +19,6 @@ import com.bluetoothchat.core.ui.model.ViewBtDeviceWithUser
 import com.bluetoothchat.core.ui.model.mapper.ViewBtDeviceMapper
 import com.bluetoothchat.core.ui.model.mapper.ViewUserMapper
 import com.bluetoothchat.core.ui.mvi.MviViewModel
-import com.bluetoothchat.feature.connect.destinations.AddUsersScreenDestination
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserEvent
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUserState
 import com.bluetoothchat.feature.connect.group.addusers.contract.AddUsersAction
@@ -34,7 +32,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 
 internal class AddUserViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val inputParams: AddUsersInputParams,
     private val btServiceManager: BtServiceManager,
     private val scanner: BtScanner,
     private val chatDataSource: ChatDataSource,
@@ -46,8 +44,6 @@ internal class AddUserViewModel(
     private val permissionManager: PermissionManager,
     private val analyticsClient: AddUsersAnalyticsClient,
 ) : MviViewModel<AddUserState, AddUsersAction, AddUserEvent>(AddUserState.None) {
-
-    val inputParams = getInputParams(savedStateHandle)
 
     init {
         viewModelScope.launch(dispatcherManager.default) {
@@ -289,7 +285,6 @@ internal class AddUserViewModel(
         private const val ESTABLISH_CONNECTION_TIMEOUT_MILLIS = 20_000L
         private const val CONNECT_HIDE_PROGRESS_DELAY_MILLIS = 2_000L
 
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(AddUsersScreenDestination.argsFrom(savedStateHandle))
     }
+
 }

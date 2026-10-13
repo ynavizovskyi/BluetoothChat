@@ -1,6 +1,5 @@
 package com.bluetoothchat.feature.chat.group.chatinfo
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.message.manager.CommunicationManagerImpl
 import com.bluetoothchat.core.db.datasource.ChatDataSource
@@ -18,7 +17,6 @@ import com.bluetoothchat.core.ui.model.mapper.chat.ViewGroupChatMapper
 import com.bluetoothchat.core.ui.model.toDomain
 import com.bluetoothchat.core.ui.model.toPictureDomain
 import com.bluetoothchat.core.ui.mvi.MviViewModel
-import com.bluetoothchat.feature.chat.destinations.GroupChatInfoScreenDestination
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.EditMode
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoAction
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoEvent
@@ -31,7 +29,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 internal class GroupChatInfoViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val inputParams: GroupChatInfoInputParams,
     private val session: Session,
     private val chatDataSource: ChatDataSource,
     private val communicationManager: CommunicationManagerImpl,
@@ -43,8 +41,6 @@ internal class GroupChatInfoViewModel(
 ) : MviViewModel<GroupChatInfoState, GroupChatInfoAction, GroupChatInfoEvent>(
     GroupChatInfoState.Loading
 ) {
-
-    private val inputParams = getInputParams(savedStateHandle)
 
     //Beware not too call it too ofter, it is expensive
     private val userActionsMapper = object : ViewUserActionsMapper {
@@ -230,7 +226,6 @@ internal class GroupChatInfoViewModel(
         setState { hostState.copy(editMode = updatedEditMode) }
     }
 
-
     private fun handleExternalGalleryPhotoSelected(action: GroupChatInfoAction.ExternalGalleryContentSelected) {
         val meState = state.value as? GroupChatInfoState.Loaded.Host ?: return
         val editModeEditing = meState.editMode as? EditMode.Editing ?: return
@@ -261,9 +256,4 @@ internal class GroupChatInfoViewModel(
         setState { hostState.copy(editMode = updatedEditMode) }
     }
 
-
-    private companion object {
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(GroupChatInfoScreenDestination.argsFrom(savedStateHandle))
-    }
 }

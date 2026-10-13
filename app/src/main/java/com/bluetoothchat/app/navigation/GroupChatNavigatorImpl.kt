@@ -1,48 +1,40 @@
 package com.bluetoothchat.app.navigation
 
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.bluetoothchat.core.analytics.consts.SOURCE_GROUP_CHAT
-import com.bluetoothchat.core.ui.components.dialog.model.DialogResult
-import com.bluetoothchat.core.ui.navigation.BaseNavigator
-import com.bluetoothchat.feature.chat.destinations.GroupChatInfoScreenDestination
-import com.bluetoothchat.feature.chat.destinations.ViewImageScreenDestination
 import com.bluetoothchat.feature.chat.group.GroupChatNavigator
 import com.bluetoothchat.feature.chat.group.chatinfo.GroupChatInfoInputParams
 import com.bluetoothchat.feature.chat.image.ViewImageInputParams
 import com.bluetoothchat.feature.profile.ProfileInputParams
 import com.bluetoothchat.feature.profile.ProfileLaunchMode
-import com.bluetoothchat.feature.profile.destinations.ProfileScreenDestination
-import com.ramcosta.composedestinations.result.OpenResultRecipient
 
-class GroupChatNavigatorImpl(navController: NavController, dialogResultRecipient: OpenResultRecipient<DialogResult>) :
-    BaseNavigator(navController, dialogResultRecipient), GroupChatNavigator {
+class GroupChatNavigatorImpl(backStack: NavBackStack<NavKey>) : BaseNavigator(backStack), GroupChatNavigator {
 
     override fun navigateToChatInfoScreen(chatId: String) {
-        navController.navigate(GroupChatInfoScreenDestination(GroupChatInfoInputParams(chatId = chatId)).route)
+        backStack.add(NavRoutes.GroupChatInfo(GroupChatInfoInputParams(chatId = chatId)))
     }
 
     override fun navigateToUserScreen(userDeviceAddress: String) {
-        navController.navigate(
-            ProfileScreenDestination(
+        backStack.add(
+            NavRoutes.Profile(
                 ProfileInputParams(
-                    mode = ProfileLaunchMode.Other(
-                        userDeviceAddress
-                    ),
+                    mode = ProfileLaunchMode.Other(userDeviceAddress),
                     source = SOURCE_GROUP_CHAT,
                 )
-            ).route
+            )
         )
     }
 
     override fun navigateToViewImageScreen(chatId: String, messageId: String) {
-        navController.navigate(
-            ViewImageScreenDestination(
+        backStack.add(
+            NavRoutes.ViewImage(
                 ViewImageInputParams(
                     chatId = chatId,
                     messageId = messageId,
                     source = SOURCE_GROUP_CHAT,
                 )
-            ).route
+            )
         )
     }
 }

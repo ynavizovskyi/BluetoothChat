@@ -1,6 +1,5 @@
 package com.bluetoothchat.feature.chat.image
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.db.datasource.MessageDataSource
 import com.bluetoothchat.core.dispatcher.DispatcherManager
@@ -9,7 +8,6 @@ import com.bluetoothchat.core.filemanager.file.FileState
 import com.bluetoothchat.core.ui.model.ViewMessageContent
 import com.bluetoothchat.core.ui.model.mapper.ViewMessageContentMapper
 import com.bluetoothchat.core.ui.mvi.MviViewModel
-import com.bluetoothchat.feature.chat.destinations.ViewImageScreenDestination
 import com.bluetoothchat.feature.chat.image.contract.ViewImageAction
 import com.bluetoothchat.feature.chat.image.contract.ViewImageEvent
 import com.bluetoothchat.feature.chat.image.contract.ViewImageState
@@ -18,7 +16,7 @@ import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
 import kotlinx.coroutines.launch
 
 internal class ViewImageViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val inputParams: ViewImageInputParams,
     private val messageDataSource: MessageDataSource,
     private val dispatcherManager: DispatcherManager,
     private val messageContentMapper: ViewMessageContentMapper,
@@ -27,8 +25,6 @@ internal class ViewImageViewModel(
 ) : MviViewModel<ViewImageState, ViewImageAction, ViewImageEvent>(
     ViewImageState.Loading
 ) {
-
-    private val inputParams = getInputParams(savedStateHandle)
 
     init {
         viewModelScope.launch(dispatcherManager.default) {
@@ -99,8 +95,4 @@ internal class ViewImageViewModel(
         }
     }
 
-    private companion object {
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(ViewImageScreenDestination.argsFrom(savedStateHandle))
-    }
 }

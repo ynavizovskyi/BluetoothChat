@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +53,8 @@ import com.bluetoothchat.core.ui.components.CustomTextField
 import com.bluetoothchat.core.ui.components.CustomTextFieldValueHeight
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.UserImage
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dropdown.DropDownDisplayStrategy
 import com.bluetoothchat.core.ui.components.dropdown.DropdownMenuItemModel
 import com.bluetoothchat.core.ui.components.dropdown.ItemDropdownMenuContainer
@@ -75,19 +78,18 @@ import com.bluetoothchat.feature.chat.group.chatinfo.contract.EditMode
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoAction
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoEvent
 import com.bluetoothchat.feature.chat.group.chatinfo.contract.GroupChatInfoState
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 val UserItemHorizontalPadding = ScreenContentHorizontalPadding
 val UserItemVerticalPadding = 6.dp
 val UserItemImageSize = 40.dp
 val UserItemContentHorizontalPadding = 12.dp
 
-
-@Destination(navArgsDelegate = GroupChatInfoInputParams::class)
 @Composable
-fun GroupChatInfoScreen(navigator: GroupChatInfoNavigator) {
-    val viewModel: GroupChatInfoViewModel = koinViewModel()
+fun GroupChatInfoScreen(params: GroupChatInfoInputParams) {
+    val navigator = LocalGroupChatInfoNavigator.current
+    val viewModel: GroupChatInfoViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)
@@ -103,12 +105,20 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(GroupChatInfoAction.ExternalGalleryContentSelected(resultUri))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { displayDialogParams.value = null },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is GroupChatInfoEvent.NavigateBack -> navigator.navigateBack()
             is GroupChatInfoEvent.NavigateToAddUsersScreen -> navigator.navigateToAddUsersScreen(event.chatId)
             is GroupChatInfoEvent.NavigateToProfileScreen -> navigator.navigateToUserScreen(event.userDeviceAddress)
-            is GroupChatInfoEvent.ShowDialog -> navigator.showDialog(event.params)
+            is GroupChatInfoEvent.ShowDialog -> displayDialogParams.value = event.params
             is GroupChatInfoEvent.OpenExternalGalleryForImage -> mediaPickerLauncher.launch(createPickImageIntent())
         }
     }
@@ -148,7 +158,6 @@ private fun BoxScope.LoadingScreenContent(
     state: GroupChatInfoState.Loading,
     actionListener: (GroupChatInfoAction) -> Unit,
 ) {
-
 }
 
 @Composable

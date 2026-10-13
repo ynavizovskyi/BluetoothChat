@@ -1,7 +1,6 @@
 package com.bluetoothchat.feature.chat.group
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.BtServiceManager
 import com.bluetoothchat.core.bluetooth.message.ConnectionState
@@ -39,7 +38,6 @@ import com.bluetoothchat.feature.chat.common.MessagePagingDelegate
 import com.bluetoothchat.feature.chat.common.composables.footer.ChatFooterAction
 import com.bluetoothchat.feature.chat.common.composables.footer.ChatFooterState
 import com.bluetoothchat.feature.chat.common.model.ViewChatItem
-import com.bluetoothchat.feature.chat.destinations.GroupChatScreenDestination
 import com.bluetoothchat.feature.chat.group.contract.GroupChatAction
 import com.bluetoothchat.feature.chat.group.contract.GroupChatEvent
 import com.bluetoothchat.feature.chat.group.contract.GroupChatState
@@ -52,7 +50,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 internal class GroupChatViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val inputParams: GroupChatInputParams,
     private val btServiceManager: BtServiceManager,
     private val dispatcherManager: DispatcherManager,
     private val chatDataSource: ChatDataSource,
@@ -71,8 +69,6 @@ internal class GroupChatViewModel(
     private val permissionManager: PermissionManager,
     private val scanner: BtScanner,
 ) : MviViewModel<GroupChatState, GroupChatAction, GroupChatEvent>(GroupChatState.Loading) {
-
-    private val inputParams = getInputParams(savedStateHandle)
 
     private val messagePagingDelegate = MessagePagingDelegate(messageDataSource = messageDataSource)
 
@@ -510,7 +506,6 @@ internal class GroupChatViewModel(
     private companion object {
         const val BUTTON_ID_CONNECT = 0
 
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(GroupChatScreenDestination.argsFrom(savedStateHandle))
     }
+
 }

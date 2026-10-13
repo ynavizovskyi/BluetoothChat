@@ -53,6 +53,8 @@ import com.bluetoothchat.core.ui.components.ExpandVerticallyAnimatedVisibility
 import com.bluetoothchat.core.ui.components.ObserveViewResumedState
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.UserImage
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.dropdown.DropDownDisplayStrategy
 import com.bluetoothchat.core.ui.components.dropdown.DropDownVisibilityHandler
 import com.bluetoothchat.core.ui.model.ViewMessage
@@ -76,18 +78,19 @@ import com.bluetoothchat.feature.chat.privat.contract.PrivateChatAction
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatEvent
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination(navArgsDelegate = PrivateChatInputParams::class)
 @Composable
-fun PrivateChatScreen(navigator: PrivateChatNavigator) {
-    val viewModel: PrivateChatViewModel = koinViewModel()
+fun PrivateChatScreen(params: PrivateChatInputParams) {
+    val navigator = LocalPrivateChatNavigator.current
+    val viewModel: PrivateChatViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
+
     val snackbarHostState = remember { SnackbarHostState() }
     val lazyListState = rememberLazyListState()
     val inputFieldFocusRequester = remember { FocusRequester() }
@@ -141,13 +144,24 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(PrivateChatAction.ExternalGalleryContentSelected(resultUri))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { result ->
+                displayDialogParams.value = null
+                viewModel.handleAction(PrivateChatAction.OnDialogResult(result))
+            },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is PrivateChatEvent.NavigateBack -> navigator.navigateBack()
             is PrivateChatEvent.RequestBluetoothPermission -> bluetoothPermissionsState.launchMultiplePermissionRequest()
             is PrivateChatEvent.RequestWriteStoragePermission -> writeStoragePermissionState?.launchPermissionRequest()
             is PrivateChatEvent.RequestEnabledBluetooth -> enableBluetoothLauncher.launch(createEnableBluetoothIntent())
-            is PrivateChatEvent.ShowDialog -> navigator.showDialog(event.params)
+            is PrivateChatEvent.ShowDialog -> displayDialogParams.value = event.params
             is PrivateChatEvent.OpenExternalGalleryForImage -> imagePickerLauncher.launch(createPickImageIntent())
             is PrivateChatEvent.ScrollToLastMessage -> coroutineScope.launch {
                 listState.animateScrollToItem(0)
@@ -180,8 +194,6 @@ private fun ObserveOneTimeEvents(
             is PrivateChatEvent.NavigateToProfileScreen -> navigator.navigateToUserScreen(event.userDeviceAddress)
         }
     }
-
-    navigator.OnDialogResult { viewModel.handleAction(PrivateChatAction.OnDialogResult(it)) }
 
     ObserveViewResumedState { viewModel.handleAction(PrivateChatAction.OnResumedStateChanged(it)) }
 }

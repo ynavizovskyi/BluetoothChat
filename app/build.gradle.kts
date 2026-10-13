@@ -6,7 +6,6 @@ plugins {
     id(Plugins.googleServices)
     id(Plugins.crashlytics)
     id(Plugins.kotlinSerialization)
-    id(Plugins.ksp)
     id(Plugins.parcelize)
 }
 
@@ -59,7 +58,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
 
-            signingConfig = signingConfigs.getByName("release")
+//            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
@@ -88,21 +87,13 @@ android {
     }
 }
 
-// Need for module nav graph generation
-ksp {
-    arg("compose-destinations.mode", "navgraphs")
-    arg("compose-destinations.moduleName", "app")
-}
-
 dependencies {
     compose()
     koin()
     koinCompose()
-    destinationsNavigation()
+    navigation3()
 
     implementation(Libs.Kotlin.stdlib)
-    implementation(Libs.Destinations.core)
-    implementation(Libs.Destinations.animationsCore)
     implementation(Libs.AndroidX.appcompat)
     implementation(Libs.AndroidX.coreSplashScreen)
 

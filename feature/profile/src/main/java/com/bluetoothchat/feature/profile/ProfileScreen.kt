@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,8 @@ import com.bluetoothchat.core.ui.components.CustomTextField
 import com.bluetoothchat.core.ui.components.CustomTextFieldValueHeight
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.UserImage
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.components.profile.ProfileContentHorizontalPadding
 import com.bluetoothchat.core.ui.components.profile.ProfileFieldNameText
 import com.bluetoothchat.core.ui.components.profile.ProfileFieldValueText
@@ -61,14 +64,14 @@ import com.bluetoothchat.feature.profile.contract.EditMode
 import com.bluetoothchat.feature.profile.contract.ProfileAction
 import com.bluetoothchat.feature.profile.contract.ProfileEvent
 import com.bluetoothchat.feature.profile.contract.ProfileState
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination(navArgsDelegate = ProfileInputParams::class)
 @Composable
-fun ProfileScreen(navigator: ProfileNavigator) {
-    val viewModel: ProfileViewModel = koinViewModel()
+fun ProfileScreen(params: ProfileInputParams) {
+    val navigator = LocalProfileNavigator.current
+    val viewModel: ProfileViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)
@@ -84,12 +87,20 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(ProfileAction.ExternalGalleryContentSelected(resultUri))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { displayDialogParams.value = null },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is ProfileEvent.NavigateBack -> navigator.navigateBack()
             is ProfileEvent.NavigateToMain -> navigator.navigateToMain()
             is ProfileEvent.OpenExternalGalleryForImage -> mediaPickerLauncher.launch(createPickImageIntent())
-            is ProfileEvent.ShowDialog -> navigator.showDialog(event.params)
+            is ProfileEvent.ShowDialog -> displayDialogParams.value = event.params
         }
     }
 }

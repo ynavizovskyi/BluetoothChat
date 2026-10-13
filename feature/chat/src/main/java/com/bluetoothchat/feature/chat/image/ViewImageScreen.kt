@@ -55,18 +55,18 @@ import com.bluetoothchat.feature.chat.image.contract.ViewImageAction
 import com.bluetoothchat.feature.chat.image.contract.ViewImageEvent
 import com.bluetoothchat.feature.chat.image.contract.ViewImageState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import java.io.File
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 private val SaveActionSize = 56.dp
 private val SaveActionPadding = 16.dp
 
-@Destination(navArgsDelegate = ViewImageInputParams::class)
 @Composable
-fun ViewImageScreen(navigator: ViewImageNavigator) {
-    val viewModel: ViewImageViewModel = koinViewModel()
+fun ViewImageScreen(params: ViewImageInputParams) {
+    val navigator = LocalViewImageNavigator.current
+    val viewModel: ViewImageViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 

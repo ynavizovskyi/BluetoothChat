@@ -22,6 +22,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -44,6 +46,8 @@ import com.bluetoothchat.core.ui.components.ObserveViewResumedState
 import com.bluetoothchat.core.ui.components.ScreenContainer
 import com.bluetoothchat.core.ui.components.button.NoBgButton
 import com.bluetoothchat.core.ui.components.button.defaultCustomButtonPaddings
+import com.bluetoothchat.core.ui.components.dialog.Dialog
+import com.bluetoothchat.core.ui.components.dialog.model.DialogInputParams
 import com.bluetoothchat.core.ui.theme.LocalChatAppColorScheme
 import com.bluetoothchat.core.ui.theme.ScreenContentHorizontalPadding
 import com.bluetoothchat.core.ui.theme.ScreenContentVerticalPadding
@@ -63,14 +67,14 @@ import com.bluetoothchat.feature.connect.main.contract.ConnectAction
 import com.bluetoothchat.feature.connect.main.contract.ConnectEvent
 import com.bluetoothchat.feature.connect.main.contract.ConnectState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import com.bluetoothchat.core.ui.R as CoreUiR
 
-@Destination(navArgsDelegate = ConnectInputParams::class)
 @Composable
-fun ConnectScreen(navigator: ConnectNavigator) {
-    val viewModel: ConnectViewModel = koinViewModel()
+fun ConnectScreen(params: ConnectInputParams) {
+    val navigator = LocalConnectNavigator.current
+    val viewModel: ConnectViewModel = koinViewModel(parameters = { parametersOf(params) })
     val viewState by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveOneTimeEvents(viewModel = viewModel, navigator = navigator)
@@ -95,6 +99,14 @@ private fun ObserveOneTimeEvents(
         viewModel.handleAction(ConnectAction.OnEnableBluetoothResult(enabled = enabled))
     }
 
+    val displayDialogParams = remember { mutableStateOf<DialogInputParams?>(null) }
+    displayDialogParams.value?.let {
+        Dialog(
+            params = it,
+            resultCallback = { displayDialogParams.value = null },
+        )
+    }
+
     viewModel.oneTimeEvent.observeWithLifecycle(minActiveState = Lifecycle.State.RESUMED) { event ->
         when (event) {
             is ConnectEvent.NavigateBack -> navigator.navigateBack()
@@ -102,7 +114,7 @@ private fun ObserveOneTimeEvents(
             is ConnectEvent.RequestBluetoothPermission -> bluetoothPermissionsState.launchMultiplePermissionRequest()
             is ConnectEvent.MakeDeviceDiscoverable -> makeDiscoverable(activity)
             is ConnectEvent.RequestEnabledBluetooth -> enableBluetoothLauncher.launch(createEnableBluetoothIntent())
-            is ConnectEvent.ShowErrorDialog -> navigator.showDialog(params = event.params)
+            is ConnectEvent.ShowErrorDialog -> displayDialogParams.value = event.params
             is ConnectEvent.NavigateToPrivateChatScreen -> navigator.navigateToPrivateChatScreen(chatId = event.chatId)
             is ConnectEvent.NavigateToGroupChatScreen -> navigator.navigateToGroupChatScreen(chatId = event.chatId)
             is ConnectEvent.ShareApk -> shareApk(activity = activity, uri = event.uri)
@@ -280,7 +292,6 @@ fun makeDiscoverable(activity: Activity) {
     try {
         ActivityCompat.startActivityForResult(activity, discoverableIntent, 1, null)
     } catch (e: ActivityNotFoundException) {
-
     }
 }
 

@@ -1,6 +1,5 @@
 package com.bluetoothchat.feature.connect.main
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.BtServiceManager
 import com.bluetoothchat.core.bluetooth.message.ConnectionState
@@ -19,7 +18,6 @@ import com.bluetoothchat.core.ui.model.ViewBtDeviceWithUser
 import com.bluetoothchat.core.ui.model.mapper.ViewBtDeviceMapper
 import com.bluetoothchat.core.ui.model.mapper.ViewUserMapper
 import com.bluetoothchat.core.ui.mvi.MviViewModel
-import com.bluetoothchat.feature.connect.destinations.ConnectScreenDestination
 import com.bluetoothchat.feature.connect.main.contract.ConnectAction
 import com.bluetoothchat.feature.connect.main.contract.ConnectEvent
 import com.bluetoothchat.feature.connect.main.contract.ConnectState
@@ -33,6 +31,7 @@ import kotlinx.coroutines.withTimeout
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 internal class ConnectViewModel(
+    private val inputParams: ConnectInputParams,
     private val btServiceManager: BtServiceManager,
     private val scanner: BtScanner,
     private val communicationManager: CommunicationManagerImpl,
@@ -44,10 +43,7 @@ internal class ConnectViewModel(
     private val apkExtractor: ApkExtractor,
     private val analyticsClient: ConnectAnalyticsClient,
     private val permissionManager: PermissionManager,
-    savedStateHandle: SavedStateHandle,
 ) : MviViewModel<ConnectState, ConnectAction, ConnectEvent>(ConnectState.None) {
-
-    private val inputParams = getInputParams(savedStateHandle)
 
     init {
         viewModelScope.launch(dispatcherManager.default) {
@@ -276,10 +272,4 @@ internal class ConnectViewModel(
             .launchIn(viewModelScope)
     }
 
-    companion object {
-
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(ConnectScreenDestination.argsFrom(savedStateHandle))
-
-    }
 }

@@ -1,4 +1,6 @@
 package com.bluetoothchat.feature.connect.group.addusers
 
-data class AddUsersInputParams(val chatId: String)
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class AddUsersInputParams(val chatId: String)

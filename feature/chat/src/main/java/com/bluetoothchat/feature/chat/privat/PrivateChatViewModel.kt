@@ -1,7 +1,6 @@
 package com.bluetoothchat.feature.chat.privat
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.bluetoothchat.core.bluetooth.BtServiceManager
 import com.bluetoothchat.core.bluetooth.message.ConnectionState
@@ -36,7 +35,6 @@ import com.bluetoothchat.feature.chat.common.MessagePagingDelegate
 import com.bluetoothchat.feature.chat.common.composables.footer.ChatFooterAction
 import com.bluetoothchat.feature.chat.common.composables.footer.ChatFooterState
 import com.bluetoothchat.feature.chat.common.model.ViewChatItem
-import com.bluetoothchat.feature.chat.destinations.PrivateChatScreenDestination
 import com.bluetoothchat.feature.chat.image.saver.SaveImageResult
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatAction
 import com.bluetoothchat.feature.chat.privat.contract.PrivateChatEvent
@@ -51,7 +49,7 @@ import kotlinx.coroutines.launch
 import com.bluetoothchat.core.ui.R as CoreUiR
 
 internal class PrivateChatViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val inputParams: PrivateChatInputParams,
     private val btServiceManager: BtServiceManager,
     private val dispatcherManager: DispatcherManager,
     private val chatDataSource: ChatDataSource,
@@ -71,8 +69,6 @@ internal class PrivateChatViewModel(
 ) : MviViewModel<PrivateChatState, PrivateChatAction, PrivateChatEvent>(PrivateChatState.Loading) {
 
     private val messagePagingDelegate = MessagePagingDelegate(messageDataSource = messageDataSource)
-
-    private val inputParams = getInputParams(savedStateHandle)
 
     init {
         viewModelScope.launch(dispatcherManager.default) {
@@ -483,7 +479,6 @@ internal class PrivateChatViewModel(
         const val BUTTON_ID_CONNECT = 0
         const val BUTTON_ID_RESTART_CHAT = 1
 
-        fun getInputParams(savedStateHandle: SavedStateHandle) =
-            requireNotNull(PrivateChatScreenDestination.argsFrom(savedStateHandle))
     }
+
 }

@@ -58,11 +58,12 @@ object Libs {
         const val permissions = "com.google.accompanist:accompanist-permissions:$version"
     }
 
-    object Destinations {
-        private const val version = "1.11.9" //Update to 2
-        const val core = "io.github.raamcosta.compose-destinations:core:${version}"
-        const val animationsCore = "io.github.raamcosta.compose-destinations:animations-core:${version}"
-        const val ksp = "io.github.raamcosta.compose-destinations:ksp:${version}"
+    object Navigation3 {
+        private const val version = "1.1.7"
+        const val runtime = "androidx.navigation3:navigation3-runtime:$version"
+        const val ui = "androidx.navigation3:navigation3-ui:$version"
+        const val lifecycleViewModel =
+            "androidx.lifecycle:lifecycle-viewmodel-navigation3:${AndroidX.Lifecycle.version}"
     }
 
     object AndroidX {
@@ -84,7 +85,7 @@ object Libs {
         }
 
         object Lifecycle {
-            private const val version = "2.10.0"
+            const val version = "2.10.0"
             const val runtumeCompose = "androidx.lifecycle:lifecycle-runtime-compose:$version"
             const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
         }

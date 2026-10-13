@@ -1,13 +1,9 @@
 package com.bluetoothchat.app.navigation
 
-import androidx.navigation.NavController
-import com.bluetoothchat.core.ui.components.dialog.model.DialogResult
-import com.bluetoothchat.core.ui.navigation.BaseNavigator
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.bluetoothchat.feature.settings.SettingsNavigator
-import com.ramcosta.composedestinations.result.OpenResultRecipient
 
-class SettingsNavigatorImpl(navController: NavController, dialogResultRecipient: OpenResultRecipient<DialogResult>) :
-    BaseNavigator(navController, dialogResultRecipient), SettingsNavigator {
+class SettingsNavigatorImpl(backStack: NavBackStack<NavKey>) : BaseNavigator(backStack), SettingsNavigator {
 
 }
-
