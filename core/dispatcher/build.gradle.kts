@@ -1,13 +1,13 @@
 plugins {
-    id(Plugins.androidLibrary)
+    alias(libs.plugins.androidLibrary)
 }
 
 android {
     namespace = "com.bluetoothchat.core.dispatcher"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation(Libs.Kotlin.Coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
 }
 

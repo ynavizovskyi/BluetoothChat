@@ -1,14 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.core.domain"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {

@@ -1,30 +1,33 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id(Plugins.androidApplication)
-    id(Plugins.kotlinCompose)
-    id(Plugins.googleServices)
-    id(Plugins.crashlytics)
-    id(Plugins.kotlinSerialization)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kotlinParcelize)
 }
+
+fun signingProperties(path: String) = Properties().apply { load(FileInputStream(project.file(path))) }
 
 android {
     namespace = "com.bluetoothchat.app"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = SdkConfig.applicationId
-        minSdk = SdkConfig.minSdk
-        targetSdk = SdkConfig.targetSdk
-        versionCode = AppVersion.code
-        versionName = AppVersion.name
+        applicationId = "com.bluetoothchat.app"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = 10
+        versionName = "1.2.0"
     }
 
     signingConfigs {
         val signingDebugProperties = "../signing/signing_debug.properties"
         if (project.file(signingDebugProperties).exists()) {
-            val signingDebug = Properties().fromFile(project, signingDebugProperties)
+            val signingDebug = signingProperties(signingDebugProperties)
 
             getByName("debug") {
                 storeFile = project.file(signingDebug.getProperty("STORE_FILE"))
@@ -35,7 +38,7 @@ android {
         }
         val signingReleaseProperties = "../signing/signing_release.properties"
         if (project.file(signingReleaseProperties).exists()) {
-            val signingRelease = Properties().fromFile(project, signingReleaseProperties)
+            val signingRelease = signingProperties(signingReleaseProperties)
 
             create("release") {
                 storeFile = project.file(signingRelease.getProperty("STORE_FILE"))
@@ -88,35 +91,37 @@ android {
 }
 
 dependencies {
-    compose()
-    koin()
-    koinCompose()
-    navigation3()
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(Libs.Kotlin.stdlib)
-    implementation(Libs.AndroidX.appcompat)
-    implementation(Libs.AndroidX.coreSplashScreen)
+    implementation(libs.koin.core)
+    implementation(libs.bundles.koin.compose)
+    implementation(libs.bundles.navigation3)
 
-    implementation(platform(Libs.Firebase.bom))
-    implementation(Libs.Firebase.analytics)
-    implementation(Libs.Firebase.crashlytics)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.splashscreen)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.dispatcher))
-    implementation(project(Module.Core.session))
-    implementation(project(Module.Core.db))
-    implementation(project(Module.Core.bluetooth))
-    implementation(project(Module.Core.ui))
-    implementation(project(Module.Core.config))
-    implementation(project(Module.Core.analytics))
-    implementation(project(Module.Core.prefs))
-    implementation(project(Module.Core.permission))
-    implementation(project(Module.Core.fileManager))
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
-    implementation(project(Module.Feature.main))
-    implementation(project(Module.Feature.chat))
-    implementation(project(Module.Feature.settings))
-    implementation(project(Module.Feature.profile))
-    implementation(project(Module.Feature.connect))
+    implementation(projects.core.domain)
+    implementation(projects.core.dispatcher)
+    implementation(projects.core.session)
+    implementation(projects.core.db)
+    implementation(projects.core.bluetooth)
+    implementation(projects.core.ui)
+    implementation(projects.core.config)
+    implementation(projects.core.analytics)
+    implementation(projects.core.prefs)
+    implementation(projects.core.permission)
+    implementation(projects.core.fileManager)
 
+    implementation(projects.feature.main)
+    implementation(projects.feature.chat)
+    implementation(projects.feature.settings)
+    implementation(projects.feature.profile)
+    implementation(projects.feature.connect)
 }

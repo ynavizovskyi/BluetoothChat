@@ -1,15 +1,15 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinCompose)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.feature.settings"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -29,16 +29,19 @@ android {
 }
 
 dependencies {
-    compose()
-    koinCompose()
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
+    implementation(libs.bundles.koin.compose)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.analytics))
-    implementation(project(Module.Core.ui))
-    implementation(project(Module.Core.prefs))
-    implementation(project(Module.Core.config))
-    implementation(project(Module.Core.dispatcher))
-    implementation(project(Module.Core.session))
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    implementation(projects.core.domain)
+    implementation(projects.core.analytics)
+    implementation(projects.core.ui)
+    implementation(projects.core.prefs)
+    implementation(projects.core.config)
+    implementation(projects.core.dispatcher)
+    implementation(projects.core.session)
 }

@@ -1,22 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id(Plugins.androidApplication) version BuildPlugins.agpVersion apply false
-    id(Plugins.androidLibrary) version BuildPlugins.agpVersion apply false
-    id(Plugins.kotlinSerialization) version Versions.kotlinVersion apply false
-    id(Plugins.kotlinCompose) version Versions.kotlinVersion apply false
-    id(Plugins.ksp) version Versions.ksp apply false
-}
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(BuildPlugins.androidGradle)
-        classpath(BuildPlugins.kotlinGradlePlugin)
-        classpath(BuildPlugins.kspGradlePlugin)
-        classpath(BuildPlugins.crashlytics)
-        classpath(BuildPlugins.googleServicesPlugin)
-    }
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
+    alias(libs.plugins.kotlinParcelize) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.googleServices) apply false
+    alias(libs.plugins.firebaseCrashlytics) apply false
 }

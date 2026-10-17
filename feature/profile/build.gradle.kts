@@ -1,16 +1,16 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinCompose)
-    id(Plugins.kotlinSerialization)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.feature.profile"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -30,21 +30,24 @@ android {
 }
 
 dependencies {
-    compose()
-    koinCompose()
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(Libs.Kotlin.serialization)
+    implementation(libs.bundles.koin.compose)
 
-    implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
-    implementation(Libs.AndroidX.Compose.materialIcons)
-    implementation(Libs.coilCompose)
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation(project(Module.Core.ui))
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.db))
-    implementation(project(Module.Core.bluetooth))
-    implementation(project(Module.Core.session))
-    implementation(project(Module.Core.fileManager))
-    implementation(project(Module.Core.analytics))
-    implementation(project(Module.Core.dispatcher))
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.coil.compose)
+
+    implementation(projects.core.ui)
+    implementation(projects.core.domain)
+    implementation(projects.core.db)
+    implementation(projects.core.bluetooth)
+    implementation(projects.core.session)
+    implementation(projects.core.fileManager)
+    implementation(projects.core.analytics)
+    implementation(projects.core.dispatcher)
 }

@@ -1,14 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinCompose)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
 }
 
 android {
     namespace = "com.bluetoothchat.core.permission"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -28,9 +28,12 @@ android {
 }
 
 dependencies {
-    koin()
-    compose()
+    implementation(libs.koin.core)
 
-    implementation(Libs.AndroidX.coreKtx)
-    implementation(Libs.Accompanist.permissions)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.accompanist.permissions)
 }

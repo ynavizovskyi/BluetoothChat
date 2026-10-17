@@ -1,14 +1,14 @@
 import java.util.Properties
 plugins {
-    id(Plugins.androidLibrary)
+    alias(libs.plugins.androidLibrary)
 }
 
 android {
     namespace = "com.bluetoothchat.core.analytics"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildFeatures {
@@ -36,17 +36,17 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.core)
 
-    implementation(Libs.Kotlin.stdlib)
-    implementation(Libs.Kotlin.Coroutines.core)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
 
     //For some reason amplitude client crashes without explicit okhttp dependency
-    implementation(Libs.okhttp3)
-    implementation(Libs.amplitude)
+    implementation(libs.okhttp)
+    implementation(libs.amplitude.android.sdk)
 
-    implementation(project(Module.Core.prefs))
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.config))
-    implementation(project(Module.Core.dispatcher))
+    implementation(projects.core.prefs)
+    implementation(projects.core.domain)
+    implementation(projects.core.config)
+    implementation(projects.core.dispatcher)
 }

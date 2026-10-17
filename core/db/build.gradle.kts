@@ -1,14 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.ksp)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.bluetoothchat.core.db"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -24,13 +24,13 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.core)
 
-    implementation(Libs.Room.runtime)
-    implementation(Libs.Room.ktx)
-    ksp(Libs.Room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.dispatcher))
+    implementation(projects.core.domain)
+    implementation(projects.core.dispatcher)
 
 }

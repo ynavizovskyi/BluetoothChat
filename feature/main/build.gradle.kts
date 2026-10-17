@@ -1,14 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinCompose)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
 }
 
 android {
     namespace = "com.bluetoothchat.feature.main"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -28,24 +28,27 @@ android {
 }
 
 dependencies {
-    compose()
-    koinCompose()
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
-    implementation(Libs.AndroidX.Compose.materialIcons)
-    implementation(Libs.Accompanist.permissions)
-    implementation(Libs.coilCompose)
+    implementation(libs.bundles.koin.compose)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.db))
-    implementation(project(Module.Core.ui))
-    implementation(project(Module.Core.bluetooth))
-    implementation(project(Module.Core.fileManager))
-    implementation(project(Module.Core.session))
-    implementation(project(Module.Core.dispatcher))
-    implementation(project(Module.Core.permission))
-    implementation(project(Module.Core.config))
-    implementation(project(Module.Core.prefs))
-    implementation(project(Module.Core.analytics))
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.accompanist.permissions)
+    implementation(libs.coil.compose)
+
+    implementation(projects.core.domain)
+    implementation(projects.core.db)
+    implementation(projects.core.ui)
+    implementation(projects.core.bluetooth)
+    implementation(projects.core.fileManager)
+    implementation(projects.core.session)
+    implementation(projects.core.dispatcher)
+    implementation(projects.core.permission)
+    implementation(projects.core.config)
+    implementation(projects.core.prefs)
+    implementation(projects.core.analytics)
 
 }

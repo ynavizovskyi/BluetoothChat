@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google()
@@ -13,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Bluetooth Chat"
+rootProject.name = "BluetoothChat"
 include(":app")
 include(":core:bluetooth")
 include(":core:ui")

@@ -1,13 +1,13 @@
 plugins {
-    id(Plugins.androidLibrary)
+    alias(libs.plugins.androidLibrary)
 }
 
 android {
     namespace = "com.bluetoothchat.core.config"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -23,14 +23,14 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.core)
 
-    implementation(Libs.Kotlin.stdlib)
-    implementation(Libs.Kotlin.Coroutines.core)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
 
-    implementation(platform(Libs.Firebase.bom))
-    implementation(Libs.Firebase.config)
-    implementation(Libs.Firebase.analytics)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.analytics)
 
-    implementation(project(Module.Core.dispatcher))
+    implementation(projects.core.dispatcher)
 }

@@ -1,15 +1,15 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinCompose)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.core.ui"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -29,21 +29,24 @@ android {
 }
 
 dependencies {
-    koin()
-    compose()
-    navigation3()
+    implementation(libs.koin.core)
 
-    implementation(Libs.coilCompose)
-    implementation(Libs.playReview)
-    implementation(Libs.AndroidX.Lifecycle.viewModelCompose)
-    implementation(Libs.AndroidX.Lifecycle.runtumeCompose)
-    implementation(Libs.AndroidX.Compose.material3)
-    implementation(Libs.AndroidX.Compose.materialIcons)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.db))
-    implementation(project(Module.Core.bluetooth))
-    implementation(project(Module.Core.fileManager))
-    implementation(project(Module.Core.session))
+    implementation(libs.bundles.navigation3)
+
+    implementation(libs.coil.compose)
+    implementation(libs.play.review.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+
+    implementation(projects.core.domain)
+    implementation(projects.core.db)
+    implementation(projects.core.bluetooth)
+    implementation(projects.core.fileManager)
+    implementation(projects.core.session)
 
 }

@@ -1,14 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.core.filemanager"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -24,13 +24,13 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.core)
 
-    implementation(Libs.AndroidX.coreKtx)
-    implementation(Libs.coilCompose)
-    implementation(Libs.AndroidX.paletteKtx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.palette.ktx)
 
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.dispatcher))
+    implementation(projects.core.domain)
+    implementation(projects.core.dispatcher)
     
 }

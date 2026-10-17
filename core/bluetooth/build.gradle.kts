@@ -1,15 +1,15 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinSerialization)
-    id(Plugins.parcelize)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
     namespace = "com.bluetoothchat.core.bluetooth"
-    compileSdk = SdkConfig.compileSdk
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = SdkConfig.minSdk
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -31,18 +31,18 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.core)
 
-    implementation(Libs.AndroidX.coreKtx)
-    implementation(Libs.Kotlin.serialization)
-    implementation(Libs.Kotlin.Coroutines.core)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
     
-    implementation(project(Module.Core.dispatcher))
-    implementation(project(Module.Core.db))
-    implementation(project(Module.Core.prefs))
-    implementation(project(Module.Core.session))
-    implementation(project(Module.Core.domain))
-    implementation(project(Module.Core.fileManager))
-    implementation(project(Module.Core.permission))
+    implementation(projects.core.dispatcher)
+    implementation(projects.core.db)
+    implementation(projects.core.prefs)
+    implementation(projects.core.session)
+    implementation(projects.core.domain)
+    implementation(projects.core.fileManager)
+    implementation(projects.core.permission)
 
 }
